@@ -142,6 +142,8 @@ button{font-family:var(--mono);cursor:pointer}
 .act .qty{position:absolute;bottom:2px;right:4px;font-size:9px;color:var(--blue)}
 #endturn{width:96px;background:#3a2c14;border-color:#7a5a22;color:var(--amber2)}
 #endturn:hover{background:#4d3a18;border-color:var(--amber)}
+#fallback{width:96px;background:#2c1616;border-color:#7a2a2a;color:#f0a4a4}
+#fallback:hover{background:#3a1d1d;border-color:#b94444}
 
 #objpanel{top:56px;right:12px;width:230px;padding:10px 12px}
 #objpanel h4{font-size:10px;letter-spacing:.3em;color:var(--dim);text-transform:uppercase;margin-bottom:8px}
@@ -172,6 +174,7 @@ button{font-family:var(--mono);cursor:pointer}
 #flashfx{position:fixed;inset:0;background:#fff;opacity:0;pointer-events:none;z-index:180}
 
 /* ---------- debrief ---------- */
+#debrief{justify-content:flex-start;overflow-y:auto;padding:36px 0 28px}
 #debrief .doc{width:min(700px,92vw);border:1px solid var(--line);background:var(--panel);padding:40px;text-align:center}
 #debrief h2{font-size:46px;margin-bottom:6px}
 #debrief h2.fail{color:var(--red)}
@@ -1131,7 +1134,7 @@ const Career={
     const op={ id:Career.nextId++, first, last, name:(first+' '+last).toUpperCase(),
       callsign:cs, cls, gender:female?'F':'M',
       xp:lvl>0?RANKS[Math.min(lvl,RANKS.length-1)].xp:0, skillPoints:lvl, skills:[],
-      kills:0, missions:0, medals:[] };
+      kills:0, missions:0, medals:[], recoveryOps:0 };
     // auto-pick skills for pre-leveled recruits
     if(lvl>0){ const pool=skillsFor(cls); for(let i=0;i<lvl&&op.skills.length<pool.length;i++){ const s=pool[irnd(0,pool.length-1)]; if(!op.skills.includes(s)){op.skills.push(s);op.skillPoints--;} } }
     return op;
@@ -1174,7 +1177,7 @@ function loadMission(m, loadouts){
       else if(c==='h'){ addEnemy('heavy',x,y,false); c='.'; }
       else if(c==='X'){ const e=addEnemy('heavy',x,y,false); e.hvt=true; e.name='HVT'; e.hp=e.maxhp=170; e.armor=90; G.hvt=e; c='.'; }
       else if(c==='R'){ G.hostages.push({x,y,alive:true,secured:false,name:'Hostage '+(G.hostages.length+1)}); c='.'; }
-      else if(c==='B'){ G.bomb={x,y,defused:false}; c='.'; }
+      else if(c==='B'){ G.bomb={x,y,defused:false,detonated:false}; c='.'; }
       else if(c==='I'){ G.intel.push({x,y,taken:false,name:'Intel '+(G.intel.length+1)}); c='.'; }
       row.push(c);
     }
@@ -1552,6 +1555,7 @@ async function actSecure(h){
 }
 async function actDefuse(){
   const op=selOp();
+  if(G.bomb&&G.bomb.detonated)return log('Too late. The device has already detonated.','red');
   if(op.ap<6)return log('Need 6 AP to defuse.','amb');
   op.ap-=6; G.bomb.defused=true;
   SFX.heal(); G.fx.rings.push({x:G.bomb.x*TILE+TILE/2,y:G.bomb.y*TILE+TILE/2,r:4,max:TILE*1.6,color:'#8fe08a',life:1});
@@ -1589,10 +1593,10 @@ async function endTurn(){
   await wait(650);
 
   // bomb tick
-  if(G.bomb&&!G.bomb.defused&&G.bombTimer>0){
+  if(G.bomb&&!G.bomb.defused&&!G.bomb.detonated&&G.bombTimer>0){
     G.bombTimer--;
     if(G.bombTimer<=3) log(`⏱ IED TIMER: ${G.bombTimer} TURNS LEFT`,'red');
-    if(G.bombTimer<=0){ await bombDetonate(); return; }
+    if(G.bombTimer<=0){ await bombDetonate(); if(checkEnd()){ G.busy=false; return; } }
   }
 
   // hostage execution risk
@@ -1713,13 +1717,14 @@ async function enemyStep(e,nx,ny){
   return true;
 }
 async function bombDetonate(){
+  if(!G.bomb||G.bomb.detonated) return;
   SFX.frag(); SFX.frag(); G.fx.shake=30; flashScreen(1);
+  G.bomb.detonated=true; G.bombTimer=0;
   G.fx.rings.push({x:G.bomb.x*TILE+TILE/2,y:G.bomb.y*TILE+TILE/2,r:10,max:TILE*8,color:'#ff7a3d',life:1});
   log('☠ THE DEVICE DETONATED.','red');
   for(const o of G.ops){ if(o.alive&&dist(o,G.bomb)<9){o.hp=0;killEntity(o);} }
-  await wait(900);
-  G.over=true; G.busy=false;
-  Game.finish(false,'The vault IED detonated. The building — and the operation — is gone.');
+  await wait(700);
+  checkEnd();
 }
 
 /* ---------- win / lose ---------- */
@@ -1727,7 +1732,7 @@ function objectivesState(){
   return G.mission.objectives.map(o=>{
     if(o.type==='eliminate') return {...o,done:G.enemies.every(e=>!e.alive)};
     if(o.type==='rescue') return {...o,done:G.hostages.every(h=>h.secured&&h.alive)};
-    if(o.type==='defuse') return {...o,done:G.bomb&&G.bomb.defused};
+    if(o.type==='defuse') return {...o,done:G.bomb&&G.bomb.defused&&!G.bomb.detonated};
     if(o.type==='intel') return {...o,done:G.intel.length>0&&G.intel.every(it=>it.taken)};
     if(o.type==='hvt') return {...o,done:G.hvt&&!G.hvt.alive};
     return {...o,done:false};
@@ -1735,7 +1740,6 @@ function objectivesState(){
 }
 function checkEnd(){
   if(G.over) return true;
-  if(G.hostages.some(h=>!h.alive)){ G.over=true; Game.finish(false,'A hostage was killed. Command is pulling the plug.'); return true; }
   if(G.ops.every(o=>!o.alive)){ G.over=true; Game.finish(false,'Entry team wiped. No survivors reached extraction.'); return true; }
   if(objectivesState().every(o=>o.done)){ G.over=true; Game.finish(true); return true; }
   return false;
@@ -2093,12 +2097,18 @@ function render(){
   if(G.bomb){
     const bx=G.bomb.x*TILE+TILE/2,by=G.bomb.y*TILE+TILE/2;
     if(G.explored.has(key(G.bomb.x,G.bomb.y))){
-      ctx.fillStyle='#22261f'; ctx.fillRect(bx-11,by-8,22,16);
-      ctx.fillStyle=G.bomb.defused?'#8fe08a':(Math.sin(performance.now()/200)>0?'#ff4a3d':'#701d16');
-      ctx.beginPath(); ctx.arc(bx+6,by-3,2.5,0,7); ctx.fill();
-      ctx.strokeStyle='#c33'; ctx.beginPath(); ctx.moveTo(bx-8,by+4); ctx.lineTo(bx+8,by-1); ctx.stroke();
-      ctx.fillStyle=G.bomb.defused?'#8fe08a':'#ff6b5e'; ctx.font='bold 10px monospace'; ctx.textAlign='center';
-      ctx.fillText(G.bomb.defused?'SAFE':'IED',bx,by-14); ctx.textAlign='left';
+      if(!G.bomb.detonated){
+        ctx.fillStyle='#22261f'; ctx.fillRect(bx-11,by-8,22,16);
+        ctx.fillStyle=G.bomb.defused?'#8fe08a':(Math.sin(performance.now()/200)>0?'#ff4a3d':'#701d16');
+        ctx.beginPath(); ctx.arc(bx+6,by-3,2.5,0,7); ctx.fill();
+        ctx.strokeStyle='#c33'; ctx.beginPath(); ctx.moveTo(bx-8,by+4); ctx.lineTo(bx+8,by-1); ctx.stroke();
+        ctx.fillStyle=G.bomb.defused?'#8fe08a':'#ff6b5e'; ctx.font='bold 10px monospace'; ctx.textAlign='center';
+        ctx.fillText(G.bomb.defused?'SAFE':'IED',bx,by-14); ctx.textAlign='left';
+      } else {
+        ctx.fillStyle='rgba(180,70,30,.35)'; ctx.beginPath(); ctx.arc(bx,by,20,0,7); ctx.fill();
+        ctx.fillStyle='#ff9a4d'; ctx.font='bold 10px monospace'; ctx.textAlign='center';
+        ctx.fillText('BLAST',bx,by-18); ctx.textAlign='left';
+      }
     }
   }
 
@@ -2323,7 +2333,7 @@ cv.addEventListener('click',e=>{
   const it=G.intel&&G.intel.find(it=>!it.taken&&it.x===t.x&&it.y===t.y);
   if(it){ if(Math.hypot(op.x-it.x,op.y-it.y)<1.6) actSecureIntel(it); else log('Move adjacent to the intel to recover it.','amb'); return; }
   // click bomb adjacent → defuse
-  if(G.bomb&&!G.bomb.defused&&G.bomb.x===t.x&&G.bomb.y===t.y){
+  if(G.bomb&&!G.bomb.defused&&!G.bomb.detonated&&G.bomb.x===t.x&&G.bomb.y===t.y){
     if(Math.hypot(op.x-t.x,op.y-t.y)<1.6) actDefuse(); else log('Get adjacent to the device to defuse.','amb'); return;
   }
   // click door adjacent → quiet open by default
@@ -2355,6 +2365,7 @@ addEventListener('keydown',e=>{
   if(k==='x'){ e.preventDefault(); executePlans(); }
   if(k==='tab'){ e.preventDefault(); let i=G.selected; for(let n=0;n<4;n++){ i=(i+1)%4; if(G.ops[i].alive)break; } G.selected=i; SFX.click(); UI.refresh(); centerCam(G.ops[i]); }
   if(k===' '||k==='enter'){ e.preventDefault(); endTurn(); }
+  if(k==='v'){ e.preventDefault(); UI.fallback(); }
   if(k==='escape'){ G.mode=null; G.planMode=false; UI.refresh(); }
 });
 
@@ -2362,6 +2373,12 @@ addEventListener('keydown',e=>{
 const UI={
   show(id){ document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active')); document.getElementById('game').classList.remove('active');
     const el=document.getElementById(id); if(el.classList.contains('screen'))el.classList.add('active'); else el.classList.add('active'); SFX.click(); },
+  fallback(){
+    if(!G.mission||G.over||G.busy) return;
+    if(!confirm('Order fallback and end the operation?')) return;
+    G.over=true; G.mode=null; G.planMode=false;
+    Game.finish(false,'Fallback ordered. Team withdrew from the operation.');
+  },
   toMissions(){
     const g=document.getElementById('missiongrid'); g.innerHTML='';
     MISSIONS.forEach((m,i)=>{
@@ -2397,6 +2414,8 @@ const UI={
     if(!Career.squad) Career.squad=[];
     // keep only still-existing members
     Career.squad=Career.squad.filter(m=>Career.memberById(m.id));
+    // remove operators that are still recovering
+    Career.squad=Career.squad.filter(m=>!(m.recoveryOps>0));
     UI.renderSquadSelect();
     UI.show('squadsel');
   },
@@ -2405,7 +2424,9 @@ const UI={
     Career.roster.forEach(m=>{
       const sel=Career.squad.some(s=>s.id===m.id);
       const card=UI.buildRosterCard(m, sel);
+      if(m.recoveryOps>0) card.classList.add('dead');
       card.onclick=()=>{
+        if(m.recoveryOps>0){ SFX.click(); UI.flashCount(); return; }
         const idx=Career.squad.findIndex(s=>s.id===m.id);
         if(idx>=0) Career.squad.splice(idx,1);
         else { if(Career.squad.length>=4){ log&&0; return UI.flashCount(); } Career.squad.push(m); }
@@ -2420,6 +2441,7 @@ const UI={
   flashCount(){ const c=document.getElementById('sq-count'); c.style.color='#d64541'; setTimeout(()=>c.style.color='',400); },
   buildRosterCard(m, selected){
     const cls=CLASSES[m.cls];
+    const recovering=m.recoveryOps>0;
     const card=document.createElement('button');
     card.className='rcard'+(selected?' sel':'');
     card.innerHTML=`${m.skillPoints>0?`<span class="sp">${m.skillPoints} SP</span>`:''}
@@ -2429,6 +2451,7 @@ const UI={
       <canvas width="180" height="70"></canvas>
       <div class="xp"><i style="transform:scaleX(${xpProgress(m.xp).toFixed(3)})"></i></div>
       <div class="meta"><span>${m.kills} kills</span><span>${m.missions} ops</span></div>
+      ${recovering?`<div class="meta" style="color:#e07a76"><span>Recovering</span><span>${m.recoveryOps} ${m.recoveryOps===1?'op':'ops'} left</span></div>`:''}
       <div class="skl">${(m.skills||[]).map(s=>SKILLS[s]?SKILLS[s].ico:'').join(' ')||'—'}</div>
       ${(m.medals&&m.medals.length)?`<div class="medals" title="Field medals">${m.medals.map(k=>MEDALS[k]?`<span title="${MEDALS[k].name}">${MEDALS[k].ico}</span>`:'').join('')}</div>`:''}`;
     const cv2=card.querySelector('canvas');
@@ -2445,6 +2468,8 @@ const UI={
   },
   toLoadout(){
     G.squad=Career.squad;
+    G.squad=(G.squad||[]).filter(m=>!(m.recoveryOps>0));
+    Career.squad=G.squad;
     const wrap=document.getElementById('loadoutops'); wrap.innerHTML='';
     Game.loadouts=Career.squad.map((m,i)=>(Game.loadouts&&Game.loadouts[i])||CLASSES[m.cls].weapons[0]);
     Game.gearLoadouts=Career.squad.map((m,i)=>normalizeGear((Game.gearLoadouts&&Game.gearLoadouts[i])||CLASSES[m.cls].gear));
@@ -2564,6 +2589,7 @@ const UI={
         <div><span>XP</span><b>${m.xp}</b></div>
         <div><span>Kills</span><b>${m.kills}</b></div>
         <div><span>Missions</span><b>${m.missions}</b></div>
+        <div><span>Status</span><b style="color:${m.recoveryOps>0?'#e07a76':'#8fe08a'}">${m.recoveryOps>0?`RECOVERING (${m.recoveryOps} ${m.recoveryOps===1?'op':'ops'} left)`:'READY'}</b></div>
         <div><span>HP</span><b>${cls.hp}</b></div>
         <div><span>Armor</span><b>${cls.armor}</b></div>
       </div>
@@ -2675,7 +2701,7 @@ const UI={
     tp.textContent=G.phase==='player'?'◈ Friendly Phase':'◈ Hostile Phase';
     tp.className=G.phase==='player'?'':'enemy';
     const bt=document.getElementById('bombtimer');
-    if(G.bomb&&!G.bomb.defused){ bt.style.display='block'; document.getElementById('hud-bomb').textContent=G.bombTimer; }
+    if(G.bomb&&!G.bomb.defused&&!G.bomb.detonated){ bt.style.display='block'; document.getElementById('hud-bomb').textContent=G.bombTimer; }
     else bt.style.display='none';
     // squad bar
     const sb=document.getElementById('squadbar'); sb.innerHTML='';
@@ -2723,6 +2749,9 @@ const UI={
     const eb=document.createElement('button'); eb.className='act'; eb.id='endturn';
     eb.innerHTML='<span class="key">SPC</span><span class="ico">⏭</span><span class="lbl">End Turn</span>';
     eb.disabled=G.busy||G.phase!=='player'; eb.onclick=endTurn; ab.appendChild(eb);
+    const fb=document.createElement('button'); fb.className='act'; fb.id='fallback';
+    fb.innerHTML='<span class="key">V</span><span class="ico">↩</span><span class="lbl">Fallback</span>';
+    fb.disabled=G.busy; fb.onclick=()=>UI.fallback(); ab.appendChild(fb);
     // selected info
     const owned=(op.skills||[]).map(s=>SKILLS[s]?SKILLS[s].ico:'').join(' ');
     document.getElementById('selinfo').innerHTML=op?`<h4>${op.name} — ${CLASSES[op.cls].role}</h4>
@@ -2769,6 +2798,7 @@ OBJECTIVES
 • HVT targets (✦) must be eliminated to complete the op.
 • Stand next to the IED and click it to DEFUSE (6 AP).
 • Alerted hostiles may execute unsecured hostages. Move fast, or move quiet.
+• Press V (or click Fallback) to abort the mission on command.
 
 CAREER
 • Barracks: recruit operators, rename them, and spend skill points on specialties.
@@ -2790,6 +2820,9 @@ const Game={
   pending:null, loadouts:null, gearLoadouts:null, current:null,
   start(){
     Game.current=Game.pending;
+    Career.squad=(Career.squad||[]).filter(m=>Career.memberById(m.id)&&!(m.recoveryOps>0));
+    G.squad=Career.squad;
+    if(!Career.squad.length){ UI.toSquadSelect(); return; }
     document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
     document.getElementById('game').classList.add('active');
     loadMission(Game.current, Game.loadouts);
@@ -2823,6 +2856,12 @@ const Game={
       const intelGot=(G.intel||[]).filter(i=>i.taken).length;
       const prog=[];
       const earnedMedals=[]; // {op, key}
+      const injuries=[];
+      let recoveringBefore=Career.roster.filter(m=>m.recoveryOps>0).length;
+      // every completed operation advances recovery for operators who sat out
+      Career.roster.forEach(m=>{ if(m.recoveryOps>0) m.recoveryOps=Math.max(0,m.recoveryOps-1); });
+      let recoveringAfterTick=Career.roster.filter(m=>m.recoveryOps>0).length;
+      const healedNow=Math.max(0,recoveringBefore-recoveringAfterTick);
       G.ops.forEach(op=>{
         const m=op.member; if(!m) return;
         let xp=(win?45:15)+op.mkills*25+secured*12+intelGot*10+stars*15;
@@ -2838,6 +2877,15 @@ const Game={
           prog.push({name:m.name, cls:m.cls, kia:true, xp:0, prog:0, lvlup:false, kills:op.mkills, medals:[]});
         } else {
           m.xp+=xp; m.kills+=op.mkills; m.missions++;
+          const hpRatio=op.maxhp>0?op.hp/op.maxhp:1;
+          let recovery=0;
+          if(hpRatio<=0.1) recovery=3;
+          else if(hpRatio<=0.25) recovery=2;
+          else if(hpRatio<=0.4) recovery=1;
+          if(recovery>0){
+            m.recoveryOps=Math.max(m.recoveryOps||0,recovery);
+            injuries.push({name:m.name, ops:m.recoveryOps});
+          }
           if(!m.medals) m.medals=[];
           const newM=[];
           for(const mk in MEDALS){ if(!m.medals.includes(mk)&&MEDALS[mk].check(m,op)){ m.medals.push(mk); newM.push(mk); earnedMedals.push({name:m.name, key:mk}); } }
@@ -2899,6 +2947,14 @@ const Game={
       if(earnedMedals.length){
         extra+='<div class="awardsblock"><div class="awardshead">✦ FIELD MEDALS AWARDED</div>'+
           earnedMedals.map(e=>{const md=MEDALS[e.key];return `<div class="award"><span class="ai">${md.ico}</span><div class="ad"><b>${md.name}</b><small>${e.name} — ${md.desc}</small></div></div>`;}).join('')+'</div>';
+      }
+      if(injuries.length){
+        extra+='<div class="awardsblock"><div class="awardshead">⚕ RECOVERY STATUS</div>'+
+          injuries.map(i=>`<div class="award bronze"><span class="ai">⚕</span><div class="ad"><b>${i.name}</b><small>Severe injuries — unavailable for ${i.ops} ${i.ops===1?'operation':'operations'}.</small></div></div>`).join('')+'</div>';
+      }
+      if(healedNow>0){
+        extra+='<div class="awardsblock"><div class="awardshead">✓ RETURNED TO DUTY</div>'+
+          `<div class="award"><span class="ai">✓</span><div class="ad"><b>${healedNow} operator${healedNow===1?'':'s'}</b><small>Recovered and ready for deployment.</small></div></div></div>`;
       }
       document.getElementById('db-prog').innerHTML=extra
         +'<div style="color:#8d977f;letter-spacing:.2em;font-size:11px;margin:6px 0">SQUAD PROGRESSION</div>'+
