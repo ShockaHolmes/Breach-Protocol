@@ -508,6 +508,110 @@ const GEAR_TYPES={
 const GEAR_ORDER=["flash","frag","smoke","stim","med","c2"];
 function gearCap(cls){ return cls==='breach'?8:6; }
 function normalizeGear(g){ const out={flash:0,frag:0,smoke:0,c2:0,med:0,stim:0}; if(g)for(const k in out)if(g[k])out[k]=g[k]; return out; }
+
+/* ---------- mission voice narration ---------- */
+const VoiceConfig={
+  elevenKey:'',
+  voiceId:'',
+  modelId:'eleven_multilingual_v2',
+  enabled:true,
+  useBrowserFallback:true
+};
+const Narration={
+  audio:null,
+  currentUrl:null,
+  envLoaded:false,
+  loading:null,
+  parseEnv(text){
+    const out={};
+    text.split(/\r?\n/).forEach(line=>{
+      const raw=line.trim();
+      if(!raw||raw.startsWith('#')) return;
+      const eq=raw.indexOf('=');
+      if(eq<1) return;
+      const k=raw.slice(0,eq).trim();
+      let v=raw.slice(eq+1).trim();
+      if((v.startsWith('"')&&v.endsWith('"'))||(v.startsWith("'")&&v.endsWith("'"))) v=v.slice(1,-1);
+      out[k]=v;
+    });
+    return out;
+  },
+  async loadEnv(){
+    if(this.envLoaded) return;
+    if(this.loading) return this.loading;
+    this.loading=(async()=>{
+      // Optional runtime override for hosted builds.
+      if(window.BP_ENV&&typeof window.BP_ENV==='object'){
+        VoiceConfig.elevenKey=(window.BP_ENV.ELEVENLABS_API_KEY||'').trim();
+        VoiceConfig.voiceId=(window.BP_ENV.ELEVENLABS_VOICE_ID||'').trim();
+        VoiceConfig.modelId=(window.BP_ENV.ELEVENLABS_MODEL_ID||VoiceConfig.modelId).trim()||VoiceConfig.modelId;
+      }
+      // Local static-host workflow: read .env from project root.
+      try{
+        const r=await fetch('.env',{cache:'no-store'});
+        if(r.ok){
+          const env=this.parseEnv(await r.text());
+          VoiceConfig.elevenKey=(env.ELEVENLABS_API_KEY||VoiceConfig.elevenKey||'').trim();
+          VoiceConfig.voiceId=(env.ELEVENLABS_VOICE_ID||VoiceConfig.voiceId||'').trim();
+          VoiceConfig.modelId=(env.ELEVENLABS_MODEL_ID||VoiceConfig.modelId).trim()||VoiceConfig.modelId;
+        }
+      }catch(e){}
+      this.envLoaded=true;
+      this.loading=null;
+    })();
+    return this.loading;
+  },
+  stop(){
+    try{ if(window.speechSynthesis) speechSynthesis.cancel(); }catch(e){}
+    if(this.audio){ this.audio.pause(); this.audio=null; }
+    if(this.currentUrl){ URL.revokeObjectURL(this.currentUrl); this.currentUrl=null; }
+  },
+  buildText(mission){
+    const primary=(mission.brief||'').replace(/\s+/g,' ').trim();
+    const goals=(mission.objectives||[]).map(o=>o.label).join('. ');
+    return `${mission.num}. ${mission.name}. ${primary} Objectives: ${goals}.`;
+  },
+  async speakEleven(text){
+    const url=`https://api.elevenlabs.io/v1/text-to-speech/${encodeURIComponent(VoiceConfig.voiceId)}/stream`;
+    const res=await fetch(url,{
+      method:'POST',
+      headers:{
+        'Content-Type':'application/json',
+        'xi-api-key':VoiceConfig.elevenKey
+      },
+      body:JSON.stringify({
+        text,
+        model_id:VoiceConfig.modelId,
+        voice_settings:{stability:0.35,similarity_boost:0.7,style:0.1,speaker_boost:true}
+      })
+    });
+    if(!res.ok) throw new Error('elevenlabs_failed');
+    const blob=await res.blob();
+    this.currentUrl=URL.createObjectURL(blob);
+    this.audio=new Audio(this.currentUrl);
+    this.audio.onended=()=>{ if(this.currentUrl){ URL.revokeObjectURL(this.currentUrl); this.currentUrl=null; } this.audio=null; };
+    await this.audio.play();
+  },
+  speakBrowser(text){
+    if(!('speechSynthesis' in window)||!('SpeechSynthesisUtterance' in window)) return;
+    const u=new SpeechSynthesisUtterance(text);
+    u.rate=0.98;
+    u.pitch=0.95;
+    u.volume=0.9;
+    speechSynthesis.speak(u);
+  },
+  async readMission(mission){
+    if(!VoiceConfig.enabled||!mission) return;
+    this.stop();
+    const text=this.buildText(mission);
+    await this.loadEnv();
+    if(VoiceConfig.elevenKey&&VoiceConfig.voiceId){
+      try{ await this.speakEleven(text); return; }
+      catch(e){}
+    }
+    if(VoiceConfig.useBrowserFallback) this.speakBrowser(text);
+  }
+};
 /* ---------- achievements (career badges) ---------- */
 const ACHIEVEMENTS={
   // per-mission feats
@@ -2407,6 +2511,7 @@ const UI={
     document.getElementById('brf-title').textContent=Game.pending.name;
     document.getElementById('brf-body').textContent=Game.pending.brief;
     document.getElementById('brf-objs').innerHTML=Game.pending.objectives.map(o=>`<div>${o.label}</div>`).join('')+(Game.pending.bomb?`<div>Beat the ${Game.pending.bomb}-turn IED timer</div>`:'');
+    Narration.readMission(Game.pending);
     UI.show('briefing');
   },
   /* ---------- squad select ---------- */
@@ -2984,6 +3089,7 @@ const Game={
 
 /* ================= INIT ================= */
 Career.load();
+Narration.loadEnv();
 </script>
 </body>
 </html>
