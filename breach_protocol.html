@@ -51,6 +51,7 @@ button{font-family:var(--mono);cursor:pointer}
 #menu .footer{position:absolute;bottom:18px;color:#4c584c;font-size:11px;letter-spacing:.2em}
 
 /* ---------- mission select ---------- */
+#missions{justify-content:flex-start;overflow-y:auto;padding:48px 0}
 #missions .wrap{width:min(1060px,94vw)}
 #missions h2{font-size:34px;margin-bottom:4px}
 #missions .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:14px;margin-top:22px}
@@ -89,6 +90,16 @@ button{font-family:var(--mono);cursor:pointer}
 .opcard select{width:100%;background:#0e130f;color:var(--bone);border:1px solid var(--line);padding:6px;font-family:var(--mono);font-size:12px;margin-top:3px}
 .opcard .stat{display:flex;justify-content:space-between;color:#b9b4a2;font-size:11px;padding:2px 0}
 .opcard .stat b{color:var(--bone)}
+.gearhead{display:flex;justify-content:space-between;align-items:center;margin-top:12px}
+.gearhead .pouch{color:var(--dim);font-size:10px;letter-spacing:.15em}
+.gearrow{display:flex;align-items:center;gap:8px;padding:4px 0;border-bottom:1px solid rgba(255,255,255,.04)}
+.gearrow .gi{width:20px;text-align:center;font-size:13px}
+.gearrow .gn{flex:1;font-size:11px;color:#c3bfae;letter-spacing:.05em}
+.gearrow .gn small{display:block;color:var(--dim);font-size:9px;letter-spacing:0}
+.gearrow .gstep{background:#141a12;color:var(--bone);border:1px solid var(--line);width:22px;height:22px;font-family:var(--mono);font-size:14px;cursor:pointer;line-height:1}
+.gearrow .gstep:hover:not(:disabled){border-color:var(--amber2);color:var(--amber2)}
+.gearrow .gstep:disabled{opacity:.3;cursor:default}
+.gearrow .gval{width:16px;text-align:center;font-size:13px;color:var(--bone);font-weight:bold}
 
 /* ---------- game HUD ---------- */
 #game{display:none;position:absolute;inset:0;background:#000}
@@ -179,6 +190,42 @@ button{font-family:var(--mono);cursor:pointer}
 #debrief .prog .op.kia{opacity:.6}
 #debrief .prog .op.kia .nm{color:var(--red)}
 #debrief .prog .op .lvl{color:var(--amber2);white-space:nowrap}
+#debrief .rankbadge{display:inline-block;font-size:22px;font-weight:bold;letter-spacing:0;border:2px solid;border-radius:6px;padding:0 12px;vertical-align:middle;margin-left:10px;font-family:var(--cond)}
+.awardsblock{margin:4px auto 14px;width:min(560px,92%);text-align:left}
+.awardshead{color:var(--amber2);letter-spacing:.2em;font-size:11px;margin:8px 0 6px}
+.award{border:1px solid var(--line);background:var(--panel2);padding:8px 12px;margin:5px 0;display:flex;align-items:center;gap:12px;animation:awardin .5s ease}
+.award.gold{border-color:#c9a227;box-shadow:0 0 12px rgba(201,162,39,.25) inset}
+.award.silver{border-color:#9aa3ad}
+.award.bronze{border-color:#b07a4a}
+.award .ai{font-size:24px;width:30px;text-align:center}
+.award .ad{flex:1}
+.award .ad b{color:var(--bone);font-family:var(--cond);letter-spacing:.06em;font-size:15px;text-transform:uppercase}
+.award .ad small{display:block;color:var(--dim);font-size:10px;letter-spacing:.04em}
+.award .acr{color:#8fe08a;font-size:12px;white-space:nowrap}
+@keyframes awardin{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+/* ---------- commendations screen ---------- */
+#commend .wrap{width:min(1040px,96vw)}
+#commend .cmdstats{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin:16px 0 22px}
+#commend .cs{border:1px solid var(--line);background:var(--panel);padding:12px 14px;text-align:center}
+#commend .cs span{display:block;color:var(--dim);font-size:10px;letter-spacing:.18em;text-transform:uppercase;margin-bottom:5px}
+#commend .cs b{font-family:var(--cond);font-size:26px;color:var(--bone)}
+.badgegrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:12px;max-height:52vh;overflow-y:auto;padding:2px;text-align:center}
+.badge{border:1px solid var(--line);background:var(--panel);padding:16px 12px;transition:.15s;position:relative}
+.badge.locked{opacity:.5;filter:grayscale(.6)}
+.badge.got{background:var(--panel2)}
+.badge.got.gold{border-color:#c9a227;box-shadow:0 0 14px rgba(201,162,39,.22)}
+.badge.got.silver{border-color:#9aa3ad}
+.badge.got.bronze{border-color:#b07a4a}
+.badge .bi{font-size:34px;line-height:1;margin-bottom:8px}
+.badge .bn{font-family:var(--cond);letter-spacing:.06em;text-transform:uppercase;font-size:16px;color:var(--bone)}
+.badge .bd{color:var(--dim);font-size:10px;letter-spacing:.03em;margin:6px 0 8px;min-height:28px}
+.badge .brw{font-size:11px;letter-spacing:.12em}
+.badge.got .brw{color:#8fe08a}
+.badge.locked .brw{color:var(--amber2)}
+.rcard .medals{margin-top:5px;font-size:14px;letter-spacing:2px;min-height:16px}
+#opmodal .modalmedals{margin:6px 0 10px}
+#opmodal .modalmedals .mmrow{display:flex;flex-wrap:wrap;gap:6px;margin-top:6px}
+#opmodal .modalmedals .mm{border:1px solid #6d5a2a;background:#211d10;color:#e8d9a2;font-size:11px;letter-spacing:.05em;padding:3px 8px}
 
 /* ---------- barracks / roster ---------- */
 #barracks .wrap{width:min(1140px,96vw)}
@@ -268,6 +315,7 @@ button{font-family:var(--mono);cursor:pointer}
   <button class="mbtn" onclick="UI.quickStart()">Quick Deploy<small>Jump straight into the first operation</small></button>
   <button class="mbtn" onclick="UI.toMissions()">Deploy<small>Select an operation and lead the entry team</small></button>
   <button class="mbtn" onclick="UI.toBarracks()">Barracks<small>Recruit, train &amp; manage your operators</small></button>
+  <button class="mbtn" onclick="UI.toCommendations()">Commendations<small>Badges, medals &amp; your service record</small></button>
   <button class="mbtn" onclick="UI.toFame()">Wall of Fame<small>Honor the operators killed in action</small></button>
   <button class="mbtn" onclick="UI.showHelp()">Field Manual<small>Controls, mechanics &amp; rules of engagement</small></button>
   <div class="footer">v1.0 — ALL UNITS: WEAPONS TIGHT UNTIL BREACH</div>
@@ -279,7 +327,10 @@ button{font-family:var(--mono);cursor:pointer}
     <div class="tag">Operations Board</div>
     <h2 class="stencil">Active Contracts</h2>
     <div class="grid" id="missiongrid"></div>
-    <div class="backrow"><button class="ghost" onclick="UI.show('menu')">← Back</button></div>
+    <div class="backrow" style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap">
+      <button class="ghost" onclick="UI.show('menu')">← Menu</button>
+      <button class="ghost" onclick="UI.toBarracks()">Barracks ▸</button>
+    </div>
   </div>
 </div>
 
@@ -317,6 +368,7 @@ button{font-family:var(--mono);cursor:pointer}
     <h2 class="stencil">Barracks</h2>
     <div class="toolbar">
       <button class="prime" onclick="UI.openRecruit()">+ Recruit Operator</button>
+      <button class="ghost" onclick="UI.toCommendations()">Commendations</button>
       <button class="ghost" onclick="UI.toFame()">Wall of Fame</button>
       <div class="credits">CREDITS <b id="bk-credits">0</b></div>
     </div>
@@ -348,6 +400,21 @@ button{font-family:var(--mono);cursor:pointer}
     <div class="sub">Killed in the line of duty — never forgotten</div>
     <div class="list" id="fameList"></div>
     <div class="backrow"><button class="ghost" onclick="UI.show('menu')">← Back</button></div>
+  </div>
+</div>
+
+<!-- COMMENDATIONS -->
+<div class="screen" id="commend">
+  <div class="wrap">
+    <div class="tag">Service Record</div>
+    <h2 class="stencil">Commendations</h2>
+    <div class="sub">Earn medals and badges by mastering the battlefield</div>
+    <div class="cmdstats" id="cmd-stats"></div>
+    <div class="badgegrid" id="badgeGrid"></div>
+    <div class="backrow" style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap">
+      <button class="ghost" onclick="UI.show('menu')">← Menu</button>
+      <button class="ghost" onclick="UI.toBarracks()">Barracks ▸</button>
+    </div>
   </div>
 </div>
 
@@ -404,13 +471,72 @@ const WEAPONS={
   shorty:{name:"M870 Shorty",acc:88,dmg:[18,26],apCost:3,range:6,optimal:2,falloff:9,noise:12,pellets:3,desc:"Breaching shotgun. Devastating up close."},
   mk12:{name:"MK12 SPR",acc:90,dmg:[48,70],apCost:4,range:18,optimal:12,falloff:1.2,noise:12,pellets:1,desc:"Marksman rifle. One round, one problem solved."},
   p226:{name:"P226",acc:74,dmg:[18,28],apCost:1,range:7,optimal:4,falloff:4,noise:9,pellets:1,desc:"Sidearm. Cheap AP cost."},
-  vector:{name:"KRISS Vector",acc:80,dmg:[20,30],apCost:1,range:8,optimal:4,falloff:4,noise:10,pellets:1,desc:"Hyper-fast PDW. Spray friendly."}
+  vector:{name:"KRISS Vector",acc:80,dmg:[20,30],apCost:1,range:8,optimal:4,falloff:4,noise:10,pellets:1,desc:"Hyper-fast PDW. Spray friendly."},
+  honey:{name:"Honey Badger",acc:83,dmg:[28,42],apCost:2,range:10,optimal:6,falloff:2.8,noise:5,pellets:1,desc:"Suppressed .300 carbine. Quiet punch."},
+  scar:{name:"SCAR-H",acc:84,dmg:[42,62],apCost:3,range:15,optimal:10,falloff:1.8,noise:13,pellets:1,desc:"7.62 battle rifle. Heavy hitter at range."},
+  ak:{name:"AK-105",acc:74,dmg:[36,54],apCost:3,range:12,optimal:7,falloff:2.6,noise:12,pellets:1,desc:"Compact AK. Brutal, less refined."},
+  g36:{name:"G36C",acc:80,dmg:[32,46],apCost:3,range:12,optimal:8,falloff:2.5,noise:11,pellets:1,desc:"Versatile carbine. Reliable all-rounder."},
+  ump:{name:"UMP45",acc:80,dmg:[26,40],apCost:2,range:9,optimal:5,falloff:3.2,noise:10,pellets:1,desc:".45 SMG. Bigger rounds, slower cadence."},
+  mp7:{name:"MP7A1",acc:84,dmg:[18,28],apCost:1,range:8,optimal:5,falloff:3.5,noise:5,pellets:1,desc:"Suppressed PDW. Fast and quiet."},
+  saw:{name:"M249 SAW",acc:68,dmg:[30,46],apCost:4,range:14,optimal:9,falloff:2,noise:16,pellets:2,desc:"Light machine gun. Suppressive firepower."},
+  awm:{name:"AWM",acc:94,dmg:[80,120],apCost:5,range:22,optimal:16,falloff:0.8,noise:15,pellets:1,desc:"Bolt sniper. Deletes anything it sees."},
+  spas:{name:"SPAS-12",acc:84,dmg:[16,24],apCost:3,range:6,optimal:2,falloff:8,noise:13,pellets:4,desc:"Combat shotgun. Wide, wicked spread."},
+  deagle:{name:"Desert Eagle",acc:70,dmg:[40,58],apCost:2,range:8,optimal:4,falloff:3.5,noise:13,pellets:1,desc:"Hand cannon. Loud, lethal sidearm."},
+  glock:{name:"Glock 18",acc:72,dmg:[16,24],apCost:1,range:7,optimal:4,falloff:4,noise:9,pellets:1,desc:"Machine pistol. Cheap, rapid, backup."}
 };
 const CLASSES={
-  assault:{role:"Assaulter", hp:100, armor:60, ap:8, weapons:["m4","mp5","vector"], gear:{flash:2,frag:1,c2:0,med:0}, skin:"#c79876", camo:"#566553"},
-  breach:{role:"Breacher", hp:110, armor:80, ap:7, weapons:["shorty","m4","vector"], gear:{flash:1,frag:0,c2:3,med:0}, skin:"#8b684f", camo:"#625f46"},
-  marksman:{role:"Marksman", hp:90, armor:40, ap:8, weapons:["mk12","mp5"], gear:{flash:1,frag:1,c2:0,med:0}, skin:"#d0ab8e", camo:"#495a4a"},
-  medic:{role:"Medic", hp:100, armor:60, ap:8, weapons:["mp5","vector","p226"], gear:{flash:2,frag:0,c2:0,med:2}, skin:"#a4765a", camo:"#586257"}
+  assault:{role:"Assaulter", hp:100, armor:60, ap:8, weapons:["m4","mp5","vector","scar","ak","g36","honey","ump","glock"], gear:{flash:2,frag:1,smoke:1,c2:0,med:0,stim:1}, skin:"#c79876", camo:"#566553"},
+  breach:{role:"Breacher", hp:110, armor:80, ap:7, weapons:["shorty","m4","vector","spas","saw","ump","mp7","deagle"], gear:{flash:1,frag:0,smoke:1,c2:3,med:0,stim:0}, skin:"#8b684f", camo:"#625f46"},
+  marksman:{role:"Marksman", hp:90, armor:40, ap:8, weapons:["mk12","mp5","awm","scar","honey","p226"], gear:{flash:1,frag:1,smoke:2,c2:0,med:0,stim:1}, skin:"#d0ab8e", camo:"#495a4a"},
+  medic:{role:"Medic", hp:100, armor:60, ap:8, weapons:["mp5","vector","p226","mp7","g36","glock","honey"], gear:{flash:2,frag:0,smoke:1,c2:0,med:2,stim:1}, skin:"#a4765a", camo:"#586257"}
+};
+const GEAR_TYPES={
+  flash:{name:"Flashbang",   ico:"☀", cost:1, max:3, desc:"Blinds & stuns hostiles in an area."},
+  frag: {name:"Frag Grenade",ico:"✸", cost:1, max:3, desc:"High-explosive area damage."},
+  smoke:{name:"Smoke Grenade",ico:"🌫", cost:1, max:3, desc:"Deploys concealment — blocks line of sight."},
+  stim: {name:"Combat Stim", ico:"✚⚡", cost:1, max:2, desc:"Instant boost: restores AP and heals."},
+  med:  {name:"Medkit",      ico:"✚", cost:1, max:3, desc:"Field-heal a wounded operator."},
+  c2:   {name:"C2 Charge",   ico:"💥", cost:2, max:3, desc:"Breaching charge — blow doors, stun rooms."}
+};
+const GEAR_ORDER=["flash","frag","smoke","stim","med","c2"];
+function gearCap(cls){ return cls==='breach'?8:6; }
+function normalizeGear(g){ const out={flash:0,frag:0,smoke:0,c2:0,med:0,stim:0}; if(g)for(const k in out)if(g[k])out[k]=g[k]; return out; }
+/* ---------- achievements (career badges) ---------- */
+const ACHIEVEMENTS={
+  // per-mission feats
+  flawless:   {name:"Flawless Victory", ico:"🏆", cr:200, tier:"gold",   desc:"Win with no casualties and zero damage taken.",           check:c=>c.win&&c.casualties===0&&c.dmgTaken===0},
+  untouchable:{name:"Untouchable",      ico:"🛡", cr:120, tier:"silver", desc:"Complete an operation without taking any damage.",         check:c=>c.win&&c.dmgTaken===0},
+  blitz:      {name:"Blitzkrieg",       ico:"⚡", cr:100, tier:"silver", desc:"Complete an operation under the par turn count.",          check:c=>c.win&&c.turns<c.par},
+  deadeye:    {name:"Dead-Eye",         ico:"🎯", cr:150, tier:"gold",   desc:"Finish an op with 90%+ accuracy (6+ shots).",             check:c=>c.win&&c.shots>=6&&c.hits/c.shots>=0.9},
+  guardian:   {name:"Guardian Angel",   ico:"👼", cr:150, tier:"gold",   desc:"Rescue every hostage in an operation.",                   check:c=>c.win&&c.hostTotal>0&&c.hostSaved===c.hostTotal},
+  demolition: {name:"Demolition Expert",ico:"💥", cr:120, tier:"silver", desc:"Breach 3+ doors with charges or kicks in one op.",         check:c=>c.breaches>=3},
+  grenadier:  {name:"Grenadier",        ico:"✸", cr:120, tier:"silver", desc:"Score 3+ frag grenade kills in a single op.",              check:c=>c.gnadeKills>=3},
+  decap:      {name:"Decapitation",     ico:"✦", cr:200, tier:"gold",   desc:"Eliminate a High Value Target.",                          check:c=>c.hvtKilled},
+  spymaster:  {name:"Spymaster",        ico:"🗎", cr:150, tier:"silver", desc:"Recover all intel in an operation.",                      check:c=>c.win&&c.intelTotal>0&&c.intelGot===c.intelTotal},
+  laststand:  {name:"Last Stand",       ico:"🔥", cr:150, tier:"gold",   desc:"Win with a single operator left standing (squad 2+).",    check:c=>c.win&&c.alive===1&&c.squadSize>=2},
+  perfect:    {name:"Perfect Operation",ico:"🌟", cr:100, tier:"silver", desc:"Earn a full three-star rating.",                          check:c=>c.stars>=3},
+  ghostproto: {name:"Ghost Protocol",   ico:"🌫", cr:100, tier:"silver", desc:"Deploy smoke and win without losing an operator.",         check:c=>c.win&&c.smoke>=1&&c.casualties===0},
+  overkill:   {name:"Overkill",         ico:"🔫", cr:150, tier:"gold",   desc:"Neutralize 10+ hostiles in one operation.",               check:c=>c.kills>=10},
+  // career milestones
+  firstblood: {name:"First Blood",      ico:"🩸", cr:50,  tier:"bronze", desc:"Score your first confirmed kill.",                        check:c=>c.careerKills>=1},
+  veteran:    {name:"Veteran",          ico:"🎖", cr:100, tier:"silver", desc:"Complete 5 operations.",                                  check:c=>c.careerOps>=5},
+  elite:      {name:"Elite Operator",   ico:"🏅", cr:250, tier:"gold",   desc:"Complete 15 operations.",                                 check:c=>c.careerOps>=15},
+  centurion:  {name:"Centurion",        ico:"⚔", cr:250, tier:"gold",   desc:"Reach 100 career kills.",                                 check:c=>c.careerKills>=100},
+  warmachine: {name:"War Machine",      ico:"☠", cr:500, tier:"gold",   desc:"Reach 300 career kills.",                                 check:c=>c.careerKills>=300},
+  taskforce:  {name:"Task Force",       ico:"👥", cr:150, tier:"silver", desc:"Build a roster of 8 or more operators.",                  check:c=>c.rosterSize>=8},
+  legend:     {name:"Living Legend",    ico:"👑", cr:500, tier:"gold",   desc:"Earn 15 commendations.",                                  check:c=>c.badgeCount>=15}
+};
+const ACH_ORDER=Object.keys(ACHIEVEMENTS);
+/* ---------- operator medals ---------- */
+const MEDALS={
+  blooded:    {name:"Blooded",       ico:"🩸", desc:"First confirmed kill.",                 check:(m,o)=>m.kills>=1},
+  ace:        {name:"Ace",           ico:"✦", desc:"5+ kills in a single operation.",       check:(m,o)=>o.mkills>=5},
+  kingslayer: {name:"Kingslayer",    ico:"👑", desc:"Personally eliminated an HVT.",         check:(m,o)=>o.mHvt},
+  purpleheart:{name:"Purple Heart",  ico:"🎗", desc:"Survived an op below 20% health.",      check:(m,o)=>o.alive&&o.hp>0&&o.hp<o.maxhp*0.2},
+  survivor:   {name:"Survivor",      ico:"🍀", desc:"Completed 5 operations.",               check:(m,o)=>m.missions>=5},
+  veteranm:   {name:"Old Guard",     ico:"🎖", desc:"Completed 12 operations.",              check:(m,o)=>m.missions>=12},
+  slayer:     {name:"Slayer",        ico:"⚔", desc:"50 career kills.",                      check:(m,o)=>m.kills>=50},
+  reaper:     {name:"Reaper",        ico:"☠", desc:"120 career kills.",                     check:(m,o)=>m.kills>=120}
 };
 const OP_NAMES=[
   {name:"REYES", cls:"assault"},
@@ -946,11 +1072,11 @@ const G={
   mission:null, grid:[], W:0, H:0,
   ops:[], enemies:[], hostages:[], bomb:null,
   turn:1, phase:'player', selected:0, mode:null, // mode: null|'grenade'|'frag'
-  visible:new Set(), explored:new Set(),
+  visible:new Set(), explored:new Set(), smoke:new Map(),
   cam:{x:0,y:0,zoom:1}, busy:false, over:false,
   fx:{tracers:[],parts:[],decals:[],floats:[],shake:0,rings:[]},
   hoverPath:null, hoverTarget:null,
-  stats:{shots:0,hits:0,kills:0,dmgTaken:0},
+  stats:{shots:0,hits:0,kills:0,dmgTaken:0,crits:0,gnadeKills:0,breaches:0,smoke:0,stims:0,hvt:false},
   bombTimer:0, doorAnim:{}
 };
 const PROGRESS={unlocked:1, stars:new Array(MISSIONS.length).fill(0)};
@@ -958,6 +1084,7 @@ const PROGRESS={unlocked:1, stars:new Array(MISSIONS.length).fill(0)};
 /* ================= CAREER (persistent) ================= */
 const Career={
   roster:[], fallen:[], credits:0, nextId:1, squad:[], stimActive:false,
+  badges:{}, stats:{ops:0, wins:0, kills:0, hostages:0, intel:0, best:0},
   key:'breach_career_v1',
   load(){
     try{
@@ -966,6 +1093,8 @@ const Career={
         const d=JSON.parse(raw);
         Career.roster=d.roster||[]; Career.fallen=d.fallen||[]; Career.credits=d.credits||0;
         Career.nextId=d.nextId||1;
+        Career.badges=d.badges||{};
+        Career.stats=Object.assign({ops:0,wins:0,kills:0,hostages:0,intel:0,best:0}, d.stats||{});
         PROGRESS.unlocked=d.unlocked||1;
         const st=d.stars||[]; for(let i=0;i<PROGRESS.stars.length;i++) PROGRESS.stars[i]=st[i]||0;
       }
@@ -976,7 +1105,8 @@ const Career={
     try{
       localStorage.setItem(Career.key, JSON.stringify({
         roster:Career.roster, fallen:Career.fallen, credits:Career.credits,
-        nextId:Career.nextId, unlocked:PROGRESS.unlocked, stars:PROGRESS.stars
+        nextId:Career.nextId, unlocked:PROGRESS.unlocked, stars:PROGRESS.stars,
+        badges:Career.badges, stats:Career.stats
       }));
     }catch(e){}
   },
@@ -984,6 +1114,7 @@ const Career={
     // starting task force: one of each class + two extras
     const start=['assault','breach','marksman','medic','assault','marksman'];
     Career.roster=[]; Career.fallen=[]; Career.credits=300; Career.nextId=1;
+    Career.badges={}; Career.stats={ops:0,wins:0,kills:0,hostages:0,intel:0,best:0};
     start.forEach(c=>Career.roster.push(Career.makeOperator(c)));
     Career.save();
   },
@@ -996,7 +1127,7 @@ const Career={
     const op={ id:Career.nextId++, first, last, name:(first+' '+last).toUpperCase(),
       callsign:cs, cls, gender:female?'F':'M',
       xp:lvl>0?RANKS[Math.min(lvl,RANKS.length-1)].xp:0, skillPoints:lvl, skills:[],
-      kills:0, missions:0 };
+      kills:0, missions:0, medals:[] };
     // auto-pick skills for pre-leveled recruits
     if(lvl>0){ const pool=skillsFor(cls); for(let i=0;i<lvl&&op.skills.length<pool.length;i++){ const s=pool[irnd(0,pool.length-1)]; if(!op.skills.includes(s)){op.skills.push(s);op.skillPoints--;} } }
     return op;
@@ -1012,7 +1143,7 @@ const clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
 function tile(x,y){ if(x<0||y<0||x>=G.W||y>=G.H)return '#'; return G.grid[y][x]; }
 function setTile(x,y,c){ G.grid[y][x]=c; }
 function blocksMove(x,y){ const t=tile(x,y); return t==='#'||t==='D'||t==='W'||t==='T'||t==='C'; }
-function blocksLOS(x,y){ const t=tile(x,y); return t==='#'||t==='D'; } // windows & furniture allow sight
+function blocksLOS(x,y){ const t=tile(x,y); if(t==='#'||t==='D')return true; return G.smoke&&G.smoke.has(key(x,y)); } // windows & furniture allow sight; smoke conceals
 function isCover(x,y){ const t=tile(x,y); return t==='T'||t==='C'||t==='W'; }
 function occupied(x,y){
   return G.ops.some(o=>o.alive&&o.x===x&&o.y===y)||G.enemies.some(e=>e.alive&&e.x===x&&e.y===y)||G.hostages.some(h=>h.alive&&!h.secured&&h.x===x&&h.y===y);
@@ -1023,9 +1154,9 @@ function loadMission(m, loadouts){
   G.mission=m; G.grid=[]; G.ops=[]; G.enemies=[]; G.hostages=[]; G.bomb=null;
   G.intel=[]; G.hvt=null; G.planMode=false;
   G.turn=1; G.phase='player'; G.selected=0; G.mode=null; G.over=false; G.busy=false;
-  G.visible=new Set(); G.explored=new Set(); G.doorAnim={};
+  G.visible=new Set(); G.explored=new Set(); G.doorAnim={}; G.smoke=new Map();
   G.fx={tracers:[],parts:[],decals:[],floats:[],shake:0,rings:[]};
-  G.stats={shots:0,hits:0,kills:0,dmgTaken:0};
+  G.stats={shots:0,hits:0,kills:0,dmgTaken:0,crits:0,gnadeKills:0,breaches:0,smoke:0,stims:0,hvt:false};
   G.bombTimer=m.bomb||0;
   const rows=m.map; G.H=rows.length; G.W=Math.max(...rows.map(r=>r.length));
   const spawns={};
@@ -1060,7 +1191,7 @@ function loadMission(m, loadouts){
     if(sk.includes('stims')) anyStims=true;
     const op={ id:i, member, name:member.name, cls:member.cls, x:sp.x, y:sp.y, fx:sp.x, fy:sp.y,
       hp:maxhp, maxhp, armor:maxarmor, maxarmor, ap:maxap, maxap,
-      weapon:w, gear:{...cls.gear}, skills:sk, mkills:0, plan:null,
+      weapon:w, gear:normalizeGear((Game.gearLoadouts&&Game.gearLoadouts[i])||cls.gear), skills:sk, mkills:0, plan:null,
       accBonus:sk.includes('steady')?10:0,
       rangeBonus:sk.includes('sharpshooter')?3:0,
       apDiscount:sk.includes('gunslinger')?1:0,
@@ -1230,7 +1361,7 @@ async function shootAt(shooter, target, isOp){
       let dmg=irnd(dmgR[0],dmgR[1]);
       if(isOp){
         if(shooter.exec&&target.stunned>0) dmg=Math.round(dmg*(1+shooter.exec));
-        if(shooter.crit&&Math.random()<shooter.crit){ dmg=Math.round(dmg*1.6); floatText(target.x,target.y-8,'CRIT','#ffd24a'); }
+        if(shooter.crit&&Math.random()<shooter.crit){ dmg=Math.round(dmg*1.6); G.stats.crits++; floatText(target.x,target.y-8,'CRIT','#ffd24a'); }
       }
       if(target.armor>0){ const abs=Math.min(target.armor,Math.ceil(dmg*0.6)); target.armor-=abs; dmg-=abs; }
       target.hp-=dmg; totalDmg+=dmg;
@@ -1241,7 +1372,7 @@ async function shootAt(shooter, target, isOp){
     SFX.hit(); if(isOp)G.stats.hits++;
     else G.stats.dmgTaken+=totalDmg;
     floatText(target.x,target.y,'-'+totalDmg,'#ff6b5e');
-    if(target.hp<=0){ if(isOp&&shooter.mkills!==undefined) shooter.mkills++; killEntity(target,isOp); }
+    if(target.hp<=0){ if(isOp&&shooter.mkills!==undefined){ shooter.mkills++; if(target.hvt){ shooter.mHvt=true; G.stats.hvt=true; } } killEntity(target,isOp); }
   } else {
     floatText(target.x,target.y,'MISS','#9aa38f');
     // sparks on nearby wall
@@ -1292,10 +1423,10 @@ async function actDoor(dx,dy,mode){ // mode: open|kick|c2
   op.ap-=costs[mode]; op.facing=Math.atan2(dy,dx);
   G.busy=true;
   if(mode==='open'){ setTile(x,y,'.'); SFX.click(); log(`${op.name} opens the door quietly.`); noiseAlert(x,y,2); }
-  if(mode==='kick'){ setTile(x,y,'.'); SFX.kick(); G.fx.shake=6; log(`${op.name} kicks the door in!`,'amb'); noiseAlert(x,y,6); }
+  if(mode==='kick'){ setTile(x,y,'.'); SFX.kick(); G.fx.shake=6; G.stats.breaches++; log(`${op.name} kicks the door in!`,'amb'); noiseAlert(x,y,6); }
   if(mode==='c2'){
     const rad=2.5+(disc?1:0);
-    setTile(x,y,'.'); SFX.breach(); G.fx.shake=16; flashScreen(.35);
+    setTile(x,y,'.'); SFX.breach(); G.fx.shake=16; flashScreen(.35); G.stats.breaches++;
     G.fx.rings.push({x:x*TILE+TILE/2,y:y*TILE+TILE/2,r:6,max:TILE*(2.6+disc*0.8),color:'#ffd28a',life:1});
     smokeBurst(x,y);
     log(`${op.name} blows the door with C2! Hostiles inside are stunned.`,'amb');
@@ -1320,6 +1451,17 @@ async function actGrenade(tx,ty,type){ // flash|frag
     log(`${op.name}: FLASH OUT!`,'blue');
     for(const e of G.enemies) if(e.alive&&Math.hypot(e.x-tx,e.y-ty)<=3&&losClear(tx,ty,e.x,e.y)){ e.stunned=2; makeAlert(e); floatText(e.x,e.y,'BLINDED','#fff'); }
     noiseAlert(tx,ty,9);
+  } else if(type==='smoke'){
+    SFX.kick(); G.fx.shake=4; G.stats.smoke++;
+    log(`${op.name}: SMOKE OUT — concealment deployed.`,'blue');
+    for(let dy=-2;dy<=2;dy++)for(let dx=-2;dx<=2;dx++){
+      const sx=tx+dx, sy=ty+dy;
+      if(Math.hypot(dx,dy)>2.4) continue;
+      if(sx<0||sy<0||sx>=G.W||sy>=G.H||tile(sx,sy)==='#') continue;
+      G.smoke.set(key(sx,sy),3);
+      for(let n=0;n<2;n++) G.fx.parts.push({x:sx*TILE+TILE/2+rnd(-9,9),y:sy*TILE+TILE/2+rnd(-9,9),vx:rnd(-.25,.25),vy:rnd(-.4,.05),life:rnd(2.4,3.6),color:'rgba(150,150,140,',r:rnd(9,16),smoke:true});
+    }
+    noiseAlert(tx,ty,4);
   } else {
     SFX.frag(); G.fx.shake=18; flashScreen(.3);
     G.fx.rings.push({x:tx*TILE+TILE/2,y:ty*TILE+TILE/2,r:8,max:TILE*3,color:'#ff9a4d',life:1});
@@ -1331,7 +1473,7 @@ async function actGrenade(tx,ty,type){ // flash|frag
         let dmg=Math.round(rnd(45,75)*(1-d/3.4));
         if(t.armor>0){const abs=Math.min(t.armor,Math.ceil(dmg*0.5));t.armor-=abs;dmg-=abs;}
         t.hp-=dmg; bloodBurst(t); floatText(t.x,t.y,'-'+dmg,'#ff6b5e');
-        if(t.hp<=0){ if(isHost){t.alive=false;log('⚠ A HOSTAGE WAS KILLED BY THE BLAST!','red');} else { if(op.mkills!==undefined)op.mkills++; killEntity(t,true); } }
+        if(t.hp<=0){ if(isHost){t.alive=false;log('⚠ A HOSTAGE WAS KILLED BY THE BLAST!','red');} else { if(op.mkills!==undefined)op.mkills++; G.stats.gnadeKills++; if(t.hvt){op.mHvt=true;G.stats.hvt=true;} killEntity(t,true); } }
       }
     };
     G.enemies.filter(e=>e.alive).forEach(e=>hurt(e,false));
@@ -1373,6 +1515,19 @@ async function actMedkit(target){
   target.hp+=heal;
   SFX.heal(); floatText(target.x,target.y,'+'+heal,'#8fe08a');
   log(`${op.name} patches ${target===op?'themselves':target.name} (+${heal} HP).`,'grn');
+  UI.refresh();
+}
+function actStim(op){
+  op=op||selOp();
+  if(!op||!op.alive)return;
+  if(op.gear.stim<=0)return log('No combat stims.','amb');
+  if(op.ap<2)return log('Need 2 AP to inject.','amb');
+  op.gear.stim--; G.stats.stims++; op.ap=Math.min(op.maxap, op.ap-2+4);
+  const heal=Math.min(30, op.maxhp-op.hp); if(heal>0)op.hp+=heal;
+  if(op.stunned>0)op.stunned=0;
+  SFX.heal(); G.fx.rings.push({x:op.fx*TILE+TILE/2,y:op.fy*TILE+TILE/2,r:4,max:TILE*1.4,color:'#8fe08a',life:1});
+  floatText(op.x,op.y,'STIM +'+ (heal>0?heal+'HP ':'') +'AP','#8fe08a');
+  log(`${op.name} slams a combat stim — back in the fight.`,'grn');
   UI.refresh();
 }
 async function actSecureIntel(it){
@@ -1461,6 +1616,8 @@ async function endTurn(){
   // new player turn
   G.turn++; G.phase='player';
   for(const o of G.ops){ if(o.alive){ o.ap=o.maxap; if(o.stunned>0)o.stunned--; } }
+  // dissipate smoke
+  if(G.smoke&&G.smoke.size){ for(const [k,v] of G.smoke){ if(v<=1)G.smoke.delete(k); else G.smoke.set(k,v-1); } }
   // select first living op if current dead
   if(!selOp().alive){ const i=G.ops.findIndex(o=>o.alive); if(i>=0)G.selected=i; }
   computeFOV(); G.busy=false;
@@ -1693,6 +1850,14 @@ function drawTile(x,y){
 }
 
 /* ---------- character drawing (detailed top-down) ---------- */
+function wpnLen(name){
+  if(name==='AWM')return 30;
+  if(name==='MK12 SPR')return 24;
+  if(name==='SCAR-H'||name==='M249 SAW')return 22;
+  if(name==='M4A1'||name==='AK-105'||name==='G36C'||name==='Honey Badger')return 20;
+  if(name==='P226'||name==='Glock 18'||name==='Desert Eagle')return 10;
+  return 18;
+}
 function paintOperator(c,opt){
   // draws a top-down operator body in local space (forward = +x); caller has translated & rotated
   const sway=(opt.bob||0)*0.15;
@@ -1972,8 +2137,8 @@ function render(){
   }
   // grenade target
   if(G.mode&&G.hoverTile&&G.phase==='player'){
-    const r=G.mode==='flash'?3:2.6;
-    ctx.strokeStyle=G.mode==='flash'?'rgba(255,255,255,.6)':'rgba(255,120,60,.7)';
+    const r=G.mode==='flash'?3:(G.mode==='smoke'?2.4:2.6);
+    ctx.strokeStyle=G.mode==='flash'?'rgba(255,255,255,.6)':(G.mode==='smoke'?'rgba(190,190,180,.7)':'rgba(255,120,60,.7)');
     ctx.setLineDash([5,4]);
     ctx.beginPath(); ctx.arc(G.hoverTile.x*TILE+TILE/2,G.hoverTile.y*TILE+TILE/2,r*TILE,0,7); ctx.stroke();
     ctx.setLineDash([]);
@@ -2004,7 +2169,7 @@ function render(){
       ctx.strokeStyle='rgba(232,163,61,.9)'; ctx.lineWidth=2;
       ctx.beginPath(); ctx.arc(px,py,15,performance.now()/600,performance.now()/600+5); ctx.stroke(); ctx.lineWidth=1;
     }
-    drawHuman(px,py,o.facing,{skin:CLASSES[o.cls].skin,camo:CLASSES[o.cls].camo,helmet:true,vest:'#2c332b',weaponLen:o.weapon.name==='MK12 SPR'?24:(o.weapon.name==='P226'?10:18),stunned:o.stunned>0,bob:o.bob});
+    drawHuman(px,py,o.facing,{skin:CLASSES[o.cls].skin,camo:CLASSES[o.cls].camo,helmet:true,vest:'#2c332b',weaponLen:wpnLen(o.weapon.name),stunned:o.stunned>0,bob:o.bob});
     if(o.overwatch){ ctx.strokeStyle='rgba(87,168,224,.5)'; ctx.setLineDash([3,5]); ctx.beginPath(); ctx.arc(px,py,opRange(o)*TILE,0,7); ctx.stroke(); ctx.setLineDash([]);
       ctx.fillStyle='#7fbdea'; ctx.font='bold 9px monospace'; ctx.textAlign='center'; ctx.fillText('OVERWATCH',px,py-20); ctx.textAlign='left'; }
     // number tag
@@ -2016,6 +2181,19 @@ function render(){
   if(G.fx.thrown){
     const o=G.fx.thrown, p=o.p, x=o.sx+(o.ex-o.sx)*p, y=o.sy+(o.ey-o.sy)*p-Math.sin(p*Math.PI)*40;
     ctx.fillStyle='#3a4030'; ctx.beginPath(); ctx.arc(x,y,4,0,7); ctx.fill();
+  }
+  // deployed smoke clouds
+  if(G.smoke&&G.smoke.size){
+    const now=performance.now()/1000;
+    for(const [k,v] of G.smoke){
+      const p=k.split(','), cx=(+p[0])*TILE+TILE/2, cy=(+p[1])*TILE+TILE/2;
+      const a=Math.min(0.62, 0.2+v*0.16);
+      for(let n=0;n<3;n++){
+        const ox=Math.sin(now*0.7+k.length*1.3+n*2)*6, oy=Math.cos(now*0.6+n*2.1+k.length)*6;
+        ctx.fillStyle=`rgba(158,158,150,${a*(0.5+n*0.14)})`;
+        ctx.beginPath(); ctx.arc(cx+ox,cy+oy,TILE*0.62-n*3,0,7); ctx.fill();
+      }
+    }
   }
   // tracers
   for(let i=G.fx.tracers.length-1;i>=0;i--){
@@ -2163,8 +2341,10 @@ addEventListener('keydown',e=>{
   if(k==='a')G.cam.x-=40/G.cam.zoom; if(k==='d')G.cam.x+=40/G.cam.zoom;
   if(k==='f')UI.tryMode('flash');
   if(k==='g')UI.tryMode('frag');
+  if(k==='h')UI.tryMode('smoke');
   if(k==='o')actOverwatch();
   if(k==='m')actMedkit(selOp());
+  if(k==='j')actStim(selOp());
   if(k==='c')UI.doorAction('c2');
   if(k==='k')UI.doorAction('kick');
   if(k==='p'){ togglePlan(); }
@@ -2245,7 +2425,8 @@ const UI={
       <canvas width="180" height="70"></canvas>
       <div class="xp"><i style="transform:scaleX(${xpProgress(m.xp).toFixed(3)})"></i></div>
       <div class="meta"><span>${m.kills} kills</span><span>${m.missions} ops</span></div>
-      <div class="skl">${(m.skills||[]).map(s=>SKILLS[s]?SKILLS[s].ico:'').join(' ')||'—'}</div>`;
+      <div class="skl">${(m.skills||[]).map(s=>SKILLS[s]?SKILLS[s].ico:'').join(' ')||'—'}</div>
+      ${(m.medals&&m.medals.length)?`<div class="medals" title="Field medals">${m.medals.map(k=>MEDALS[k]?`<span title="${MEDALS[k].name}">${MEDALS[k].ico}</span>`:'').join('')}</div>`:''}`;
     const cv2=card.querySelector('canvas');
     UI.drawFace(cv2, m);
     return card;
@@ -2262,8 +2443,10 @@ const UI={
     G.squad=Career.squad;
     const wrap=document.getElementById('loadoutops'); wrap.innerHTML='';
     Game.loadouts=Career.squad.map((m,i)=>(Game.loadouts&&Game.loadouts[i])||CLASSES[m.cls].weapons[0]);
+    Game.gearLoadouts=Career.squad.map((m,i)=>normalizeGear((Game.gearLoadouts&&Game.gearLoadouts[i])||CLASSES[m.cls].gear));
     Career.squad.forEach((m,i)=>{
       const cls=CLASSES[m.cls];
+      const cap=gearCap(m.cls);
       const card=document.createElement('div'); card.className='opcard';
       card.innerHTML=`<h3>${m.name}</h3><div class="role">${rankName(m.xp)} · ${cls.role}</div>
         <canvas width="180" height="110" id="portrait${i}"></canvas>
@@ -2273,9 +2456,37 @@ const UI={
         <div class="stat"><span>Skills</span><b>${(m.skills||[]).map(s=>SKILLS[s].ico).join(' ')||'—'}</b></div>
         <label>Primary Weapon</label>
         <select id="wsel${i}">${cls.weapons.map(w=>`<option value="${w}" ${Game.loadouts[i]===w?'selected':''}>${WEAPONS[w].name}</option>`).join('')}</select>
-        <div class="stat" style="margin-top:6px;color:#8d977f;font-size:10px" id="wdesc${i}"></div>`;
+        <div class="stat" style="margin-top:6px;color:#8d977f;font-size:10px" id="wdesc${i}"></div>
+        <div class="gearhead"><label style="margin:0">Tactical Gear</label><span class="pouch" id="pouch${i}"></span></div>
+        <div id="gearlist${i}"></div>`;
       wrap.appendChild(card);
       const sel=card.querySelector('select');
+      // ---- tactical gear steppers ----
+      const gl=Game.gearLoadouts[i];
+      const glist=card.querySelector('#gearlist'+i);
+      const used=()=>GEAR_ORDER.reduce((s,t)=>s+gl[t]*GEAR_TYPES[t].cost,0);
+      const renderGear=()=>{
+        const u=used();
+        card.querySelector('#pouch'+i).textContent=`POUCH ${u} / ${cap}`;
+        card.querySelector('#pouch'+i).style.color=u>=cap?'#e8a33d':'';
+        glist.querySelectorAll('.gearrow').forEach(row=>{
+          const t=row.dataset.g, gt=GEAR_TYPES[t];
+          row.querySelector('.gval').textContent=gl[t];
+          row.querySelector('.minus').disabled=gl[t]<=0;
+          row.querySelector('.plus').disabled=gl[t]>=gt.max||u+gt.cost>cap;
+        });
+      };
+      GEAR_ORDER.forEach(t=>{
+        const gt=GEAR_TYPES[t];
+        const row=document.createElement('div'); row.className='gearrow'; row.dataset.g=t;
+        row.innerHTML=`<span class="gi">${gt.ico}</span>
+          <span class="gn">${gt.name}${gt.cost>1?` <small>${gt.cost} slots · ${gt.desc}</small>`:` <small>${gt.desc}</small>`}</span>
+          <button class="gstep minus">−</button><span class="gval">${gl[t]}</span><button class="gstep plus">＋</button>`;
+        glist.appendChild(row);
+        row.querySelector('.minus').onclick=()=>{ if(gl[t]>0){ gl[t]--; SFX.click(); renderGear(); } };
+        row.querySelector('.plus').onclick=()=>{ if(gl[t]<gt.max&&used()+gt.cost<=cap){ gl[t]++; SFX.click(); renderGear(); } };
+      });
+      renderGear();
       const upd=()=>{ Game.loadouts[i]=sel.value;
         const w=WEAPONS[sel.value];
         card.querySelector('#wdesc'+i).innerHTML=`${w.desc}<br>ACC ${w.acc} · DMG ${w.dmg[0]}–${w.dmg[1]} · ${w.apCost} AP/shot · RNG ${w.range}`;
@@ -2333,6 +2544,7 @@ const UI={
   refreshCareerScreens(){
     if(document.getElementById('barracks').classList.contains('active')) UI.renderBarracks();
     if(document.getElementById('squadsel').classList.contains('active')) UI.renderSquadSelect();
+    if(document.getElementById('commend').classList.contains('active')) UI.toCommendations();
   },
   openOpModal(id){
     const m=Career.memberById(id); if(!m)return;
@@ -2351,6 +2563,7 @@ const UI={
         <div><span>HP</span><b>${cls.hp}</b></div>
         <div><span>Armor</span><b>${cls.armor}</b></div>
       </div>
+      ${(m.medals&&m.medals.length)?`<div class="modalmedals"><b style="color:#e6e1d3;letter-spacing:.1em;font-size:11px">FIELD MEDALS</b><div class="mmrow">${m.medals.map(k=>MEDALS[k]?`<span class="mm" title="${MEDALS[k].name}: ${MEDALS[k].desc}">${MEDALS[k].ico} ${MEDALS[k].name}</span>`:'').join('')}</div></div>`:''}
       <div class="skhead"><b style="color:#e6e1d3;letter-spacing:.1em">SPECIALTIES</b><span class="pts">Skill points: ${m.skillPoints}</span></div>
       <div id="opm-skills"></div>
       <div style="display:flex;gap:10px;margin-top:16px">
@@ -2393,6 +2606,30 @@ const UI={
     }
     UI.show('fame');
   },
+  /* ---------- commendations ---------- */
+  toCommendations(){
+    const s=Career.stats||{}, earned=Object.keys(Career.badges).length, tot=ACH_ORDER.length;
+    const winRate=s.ops?Math.round(100*s.wins/s.ops):0;
+    document.getElementById('cmd-stats').innerHTML=`
+      <div class="cs"><span>Operations</span><b>${s.ops||0}</b></div>
+      <div class="cs"><span>Win Rate</span><b>${winRate}%</b></div>
+      <div class="cs"><span>Total Kills</span><b>${s.kills||0}</b></div>
+      <div class="cs"><span>Hostages Saved</span><b>${s.hostages||0}</b></div>
+      <div class="cs"><span>Badges</span><b>${earned} / ${tot}</b></div>
+      <div class="cs"><span>Credits</span><b style="color:var(--amber2)">${Career.credits}</b></div>`;
+    const g=document.getElementById('badgeGrid'); g.innerHTML='';
+    ACH_ORDER.forEach(k=>{
+      const a=ACHIEVEMENTS[k], got=!!Career.badges[k];
+      const d=document.createElement('div');
+      d.className='badge '+(got?('got '+a.tier):'locked');
+      d.innerHTML=`<div class="bi">${got?a.ico:'🔒'}</div>
+        <div class="bn">${a.name}</div>
+        <div class="bd">${a.desc}</div>
+        <div class="brw">${got?'✓ EARNED':'+'+a.cr+' cr'}</div>`;
+      g.appendChild(d);
+    });
+    UI.show('commend');
+  },
   _drawPortrait(x, clsKey, wkey){
     x.save(); x.translate(90,58); x.scale(2.4,2.4);
     UI._figure(x, CLASSES[clsKey], wkey);
@@ -2403,7 +2640,7 @@ const UI={
     x.save();
     x.fillStyle='rgba(0,0,0,.4)'; x.beginPath(); x.ellipse(-1,5,15,10,0,0,7); x.fill();
     x.rotate(-Math.PI/2);
-    paintOperator(x,{skin:cls.skin,camo:cls.camo,helmet:true,vest:'#2c332b',weaponLen:(wkey==='mk12'?24:(wkey==='p226'?10:18))});
+    paintOperator(x,{skin:cls.skin,camo:cls.camo,helmet:true,vest:'#2c332b',weaponLen:wpnLen(WEAPONS[wkey]?WEAPONS[wkey].name:'')});
     x.restore();
   },
   tryMode(type){
@@ -2470,8 +2707,10 @@ const UI={
     mk('💥','C2 Breach','3','C',()=>UI.doorAction('c2'),{disabled:!nearDoor||op.ap<3||op.gear.c2<=0,qty:op.gear.c2});
     mk('☀','Flashbang','4','F',()=>UI.tryMode('flash'),{disabled:op.gear.flash<=0||op.ap<4,on:G.mode==='flash',qty:op.gear.flash});
     mk('✸','Frag','4','G',()=>UI.tryMode('frag'),{disabled:op.gear.frag<=0||op.ap<4,on:G.mode==='frag',qty:op.gear.frag});
+    mk('🌫','Smoke','4','H',()=>UI.tryMode('smoke'),{disabled:op.gear.smoke<=0||op.ap<4,on:G.mode==='smoke',qty:op.gear.smoke});
     mk('◎','Overwatch','2+','O',actOverwatch,{disabled:op.ap<2,on:op.overwatch});
     mk('✚','Medkit','5','M',()=>actMedkit(selOp()),{disabled:op.gear.med<=0||op.ap<5,qty:op.gear.med});
+    mk('⚡','Combat Stim','2','J',()=>actStim(selOp()),{disabled:op.gear.stim<=0||op.ap<2,qty:op.gear.stim});
     const pc=plannedCount();
     mk('🗺','Plan Move','','P',togglePlan,{on:G.planMode});
     const xb=document.createElement('button'); xb.className='act'; xb.id='execbtn';
@@ -2515,7 +2754,10 @@ DOORS
 EQUIPMENT
 • F = flashbang: blinds & stuns hostiles for 2 turns.
 • G = frag: heavy area damage — NEVER near hostages.
+• H = smoke: deploys a concealment cloud that blocks line of sight for 3 turns.
 • M = medkit (Medic/self): heal an adjacent operator (Field Medics can revive).
+• J = combat stim: instantly restore action points and heal yourself.
+• Customize each operator's gear pouch on the LOADOUT screen before you deploy.
 
 OBJECTIVES
 • Stand next to a hostage and click them to SECURE.
@@ -2529,6 +2771,11 @@ CAREER
 • Operators earn XP, rank up, and unlock deadlier skills each mission.
 • Fallen operators are gone for good — honored on the Wall of Fame.
 
+COMMENDATIONS
+• Earn career badges for feats like flawless runs, HVT kills and breach mastery — each pays a credit bounty.
+• Operators earn field medals (Ace, Kingslayer, Purple Heart…) shown on their roster cards.
+• Every op is graded S–D on performance. Chase that S-rank.
+
 CAMERA: drag with right mouse, WASD to pan, wheel to zoom.
 END TURN: SPACE.`);
   }
@@ -2536,7 +2783,7 @@ END TURN: SPACE.`);
 
 /* ================= GAME FLOW ================= */
 const Game={
-  pending:null, loadouts:null, current:null,
+  pending:null, loadouts:null, gearLoadouts:null, current:null,
   start(){
     Game.current=Game.pending;
     document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
@@ -2552,8 +2799,7 @@ const Game={
     Game.pending=Game.current;
     Career.squad=(Career.squad||[]).filter(m=>Career.memberById(m.id));
     if(!Career.squad.length){ UI.toBarracks(); return; }
-    Game.loadouts=null; UI.toLoadout();
-  },
+    Game.loadouts=null; Game.gearLoadouts=null; UI.toLoadout();  },
   finish(win,reason){
     setTimeout(()=>{
       const total=G.ops.length;
@@ -2572,6 +2818,7 @@ const Game={
       const secured=G.hostages.filter(h=>h.alive&&h.secured).length;
       const intelGot=(G.intel||[]).filter(i=>i.taken).length;
       const prog=[];
+      const earnedMedals=[]; // {op, key}
       G.ops.forEach(op=>{
         const m=op.member; if(!m) return;
         let xp=(win?45:15)+op.mkills*25+secured*12+intelGot*10+stars*15;
@@ -2584,27 +2831,53 @@ const Game={
             rank:rankName(m.xp), kills:m.kills+op.mkills, missions:m.missions+1, mission:G.mission.name });
           Career.roster=Career.roster.filter(o=>o.id!==m.id);
           if(Career.squad) Career.squad=Career.squad.filter(o=>o.id!==m.id);
-          prog.push({name:m.name, cls:m.cls, kia:true, xp:0, prog:0, lvlup:false, kills:op.mkills});
+          prog.push({name:m.name, cls:m.cls, kia:true, xp:0, prog:0, lvlup:false, kills:op.mkills, medals:[]});
         } else {
           m.xp+=xp; m.kills+=op.mkills; m.missions++;
+          if(!m.medals) m.medals=[];
+          const newM=[];
+          for(const mk in MEDALS){ if(!m.medals.includes(mk)&&MEDALS[mk].check(m,op)){ m.medals.push(mk); newM.push(mk); earnedMedals.push({name:m.name, key:mk}); } }
           const after=levelOf(m.xp);
           const gained=after-before;
           if(gained>0) m.skillPoints+=gained;
-          prog.push({name:m.name, cls:m.cls, kia:false, xp, prog:xpProgress(m.xp), lvlup:gained>0, rank:rankName(m.xp), kills:op.mkills});
+          prog.push({name:m.name, cls:m.cls, kia:false, xp, prog:xpProgress(m.xp), lvlup:gained>0, rank:rankName(m.xp), kills:op.mkills, medals:newM});
         }
       });
-      // mission reward credits
-      if(win){ Career.credits+=100+stars*50+G.stats.kills*8; }
-      else { Career.credits+=25; }
+      // ----- career cumulative stats -----
+      Career.stats.ops++; if(win)Career.stats.wins++;
+      Career.stats.kills+=G.stats.kills; Career.stats.hostages+=secured; Career.stats.intel+=intelGot;
+      // ----- evaluate achievements -----
+      const acc=G.stats.shots?Math.round(100*G.stats.hits/G.stats.shots):0;
+      const ctx={ win, stars, turns:G.turn, par:G.mission.par, total, alive, squadSize:total,
+        casualties:total-alive, dmgTaken:G.stats.dmgTaken, shots:G.stats.shots, hits:G.stats.hits, acc,
+        kills:G.stats.kills, gnadeKills:G.stats.gnadeKills, breaches:G.stats.breaches, smoke:G.stats.smoke,
+        hvtKilled:G.stats.hvt, hostTotal:G.hostages.length, hostSaved:secured,
+        intelTotal:(G.intel||[]).length, intelGot,
+        careerOps:Career.stats.ops, careerKills:Career.stats.kills,
+        rosterSize:Career.roster.length, badgeCount:0 };
+      const newBadges=[];
+      ACH_ORDER.forEach(k=>{
+        if(Career.badges[k]) return;
+        ctx.badgeCount=Object.keys(Career.badges).length;
+        if(ACHIEVEMENTS[k].check(ctx)){ Career.badges[k]=true; newBadges.push(k); }
+      });
+      let badgeCr=0; newBadges.forEach(k=>badgeCr+=ACHIEVEMENTS[k].cr);
+      // ----- performance rank -----
+      const rank=Game.perfRank(ctx);
+      Career.stats.best=Math.max(Career.stats.best||0, rank.score);
+      // ----- credits -----
+      const baseCr=win?100+stars*50+G.stats.kills*8:25;
+      Career.credits+=baseCr+badgeCr;
       Career.save();
 
       const t=document.getElementById('db-title');
       t.textContent=win?'MISSION COMPLETE':'MISSION FAILED';
       t.className='stencil '+(win?'win':'fail');
-      document.getElementById('db-stars').innerHTML=win?('★'.repeat(stars)+`<span class="off">${'★'.repeat(3-stars)}</span>`):'<span class="off">★★★</span>';
-      const acc=G.stats.shots?Math.round(100*G.stats.hits/G.stats.shots):0;
+      document.getElementById('db-stars').innerHTML=(win?('★'.repeat(stars)+`<span class="off">${'★'.repeat(3-stars)}</span>`):'<span class="off">★★★</span>')
+        +` <span class="rankbadge" style="color:${rank.color};border-color:${rank.color}">${rank.grade}</span>`;
       document.getElementById('db-table').innerHTML=`
         ${reason?`<tr><td>Report</td><td style="color:#e07a76">${reason}</td></tr>`:''}
+        <tr><td>Performance Rating</td><td style="color:${rank.color};font-weight:bold">${rank.grade} — ${rank.label}</td></tr>
         <tr><td>Turns Taken</td><td>${G.turn} (par ${G.mission.par})</td></tr>
         <tr><td>Operators Standing</td><td>${alive} / ${total}</td></tr>
         <tr><td>Hostiles Neutralized</td><td>${G.stats.kills}</td></tr>
@@ -2612,14 +2885,40 @@ const Game={
         <tr><td>Damage Taken</td><td>${G.stats.dmgTaken}</td></tr>
         ${G.hostages.length?`<tr><td>Hostages</td><td>${secured}/${G.hostages.length} secured</td></tr>`:''}
         ${G.intel&&G.intel.length?`<tr><td>Intel</td><td>${intelGot}/${G.intel.length} recovered</td></tr>`:''}
-        <tr><td>Credits Earned</td><td style="color:var(--amber2)">+${win?100+stars*50+G.stats.kills*8:25} cr</td></tr>`;
-      document.getElementById('db-prog').innerHTML='<div style="color:#8d977f;letter-spacing:.2em;font-size:11px;margin-bottom:6px">SQUAD PROGRESSION</div>'+
+        <tr><td>Credits Earned</td><td style="color:var(--amber2)">+${baseCr} cr${badgeCr?` <span style="color:#8fe08a">(+${badgeCr} bonus)</span>`:''}</td></tr>`;
+      // newly earned commendations
+      let extra='';
+      if(newBadges.length){
+        extra+='<div class="awardsblock"><div class="awardshead">◆ COMMENDATIONS EARNED</div>'+
+          newBadges.map(k=>{const a=ACHIEVEMENTS[k];return `<div class="award ${a.tier}"><span class="ai">${a.ico}</span><div class="ad"><b>${a.name}</b><small>${a.desc}</small></div><span class="acr">+${a.cr} cr</span></div>`;}).join('')+'</div>';
+      }
+      if(earnedMedals.length){
+        extra+='<div class="awardsblock"><div class="awardshead">✦ FIELD MEDALS AWARDED</div>'+
+          earnedMedals.map(e=>{const md=MEDALS[e.key];return `<div class="award"><span class="ai">${md.ico}</span><div class="ad"><b>${md.name}</b><small>${e.name} — ${md.desc}</small></div></div>`;}).join('')+'</div>';
+      }
+      document.getElementById('db-prog').innerHTML=extra
+        +'<div style="color:#8d977f;letter-spacing:.2em;font-size:11px;margin:6px 0">SQUAD PROGRESSION</div>'+
         prog.map(p=>p.kia
           ?`<div class="op kia"><span class="nm">✝ ${p.name}</span><span style="flex:1;color:#e07a76">KILLED IN ACTION</span><span class="lvl">${p.kills} kills</span></div>`
-          :`<div class="op"><span class="nm">${p.name}</span><div class="xpbar"><i style="transform:scaleX(${p.prog.toFixed(3)})"></i></div><span class="gain">+${p.xp} XP</span><span class="lvl">${p.lvlup?'▲ '+p.rank:''}</span></div>`
+          :`<div class="op"><span class="nm">${p.name}${p.medals.length?' <span style="color:#ffd24a">'+p.medals.map(k=>MEDALS[k].ico).join('')+'</span>':''}</span><div class="xpbar"><i style="transform:scaleX(${p.prog.toFixed(3)})"></i></div><span class="gain">+${p.xp} XP</span><span class="lvl">${p.lvlup?'▲ '+p.rank:''}</span></div>`
         ).join('');
       UI.show('debrief');
     }, 900);
+  },
+  perfRank(c){
+    if(!c.win) return {grade:'F', label:'Mission Failed', color:'#e07a76', score:0};
+    let s=c.stars*28;
+    if(c.dmgTaken===0)s+=18;
+    if(c.acc>=85)s+=10; else if(c.acc>=70)s+=5;
+    if(c.alive===c.total)s+=12;
+    if(c.turns<c.par)s+=12;
+    if(c.hostTotal>0&&c.hostSaved===c.hostTotal)s+=8;
+    if(c.intelTotal>0&&c.intelGot===c.intelTotal)s+=6;
+    s+=Math.min(16,c.kills*2);
+    const grade = s>=120?'S': s>=98?'A': s>=76?'B': s>=54?'C':'D';
+    const label = {S:'Legendary',A:'Exemplary',B:'Professional',C:'Adequate',D:'Sloppy'}[grade];
+    const color = {S:'#ffd24a',A:'#8fe08a',B:'#7fbdea',C:'#c3bfae',D:'#e0a07a'}[grade];
+    return {grade, label, color, score:s};
   }
 };
 
