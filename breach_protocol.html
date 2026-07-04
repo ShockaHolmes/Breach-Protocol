@@ -170,6 +170,83 @@ button{font-family:var(--mono);cursor:pointer}
 #debrief td{padding:6px 18px;font-size:13px;color:#c9c4b4;text-align:left}
 #debrief td:first-child{color:var(--dim);letter-spacing:.15em;text-transform:uppercase;font-size:11px}
 #debrief .row{display:flex;gap:12px;justify-content:center}
+#debrief .prog{margin:0 auto 22px;width:min(560px,90%);text-align:left}
+#debrief .prog .op{border:1px solid var(--line);background:var(--panel2);padding:9px 12px;margin:6px 0;display:flex;align-items:center;gap:10px;font-size:12px}
+#debrief .prog .op .nm{font-family:var(--cond);letter-spacing:.06em;text-transform:uppercase;font-size:15px;color:var(--bone);min-width:150px}
+#debrief .prog .op .xpbar{flex:1;height:8px;background:#22291f;position:relative;border:1px solid var(--line)}
+#debrief .prog .op .xpbar i{position:absolute;inset:0;transform-origin:left;background:var(--amber)}
+#debrief .prog .op .gain{color:var(--green);white-space:nowrap}
+#debrief .prog .op.kia{opacity:.6}
+#debrief .prog .op.kia .nm{color:var(--red)}
+#debrief .prog .op .lvl{color:var(--amber2);white-space:nowrap}
+
+/* ---------- barracks / roster ---------- */
+#barracks .wrap{width:min(1140px,96vw)}
+#barracks h2{font-size:34px}
+#barracks .toolbar{display:flex;gap:10px;margin:14px 0;align-items:center;flex-wrap:wrap}
+#barracks .credits{margin-left:auto;color:var(--amber2);letter-spacing:.15em;font-size:13px}
+#barracks .credits b{color:var(--bone)}
+.rgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:12px;max-height:56vh;overflow-y:auto;padding:2px}
+.rcard{border:1px solid var(--line);background:var(--panel);padding:12px;text-align:left;transition:.15s;position:relative;color:var(--bone);cursor:pointer}
+.rcard:hover{border-color:var(--amber);background:var(--panel2)}
+.rcard.sel{border-color:var(--amber);box-shadow:0 0 0 1px var(--amber) inset;background:#26301f}
+.rcard .rk{color:var(--amber);font-size:10px;letter-spacing:.2em;text-transform:uppercase}
+.rcard h3{font-family:var(--cond);font-size:20px;letter-spacing:.06em;margin:3px 0;text-transform:uppercase}
+.rcard .cs{color:var(--blue);font-size:11px;letter-spacing:.1em}
+.rcard .role{color:var(--dim);font-size:11px;letter-spacing:.15em;text-transform:uppercase;margin:4px 0}
+.rcard canvas{width:100%;height:70px;background:#10150f;border:1px solid var(--line);margin:6px 0}
+.rcard .xp{height:6px;background:#22291f;position:relative;border:1px solid var(--line);margin-top:6px}
+.rcard .xp i{position:absolute;inset:0;transform-origin:left;background:var(--amber)}
+.rcard .meta{display:flex;justify-content:space-between;color:var(--dim);font-size:10px;margin-top:5px}
+.rcard .sp{position:absolute;top:8px;right:8px;background:var(--amber);color:#141109;font-size:9px;font-weight:bold;padding:2px 5px;letter-spacing:.1em}
+.rcard .skl{margin-top:5px;color:var(--amber2);font-size:14px;letter-spacing:2px;min-height:16px}
+
+/* operator detail modal */
+#opmodal{position:fixed;inset:0;z-index:210;display:none;align-items:center;justify-content:center;background:rgba(4,6,5,.82)}
+#opmodal.active{display:flex}
+#opmodal .card{width:min(620px,94vw);border:1px solid var(--amber);background:var(--panel);padding:26px 30px;max-height:92vh;overflow-y:auto}
+#opmodal h3{font-family:var(--cond);font-size:30px;letter-spacing:.06em;text-transform:uppercase;color:var(--amber2)}
+#opmodal .sub{color:var(--dim);letter-spacing:.15em;font-size:12px;text-transform:uppercase;margin-bottom:12px}
+#opmodal input.rename{background:#0e130f;color:var(--bone);border:1px solid var(--line);padding:8px 10px;font-family:var(--mono);font-size:14px;width:100%;margin:6px 0 4px;letter-spacing:.08em}
+#opmodal .stats{display:grid;grid-template-columns:1fr 1fr;gap:4px 18px;margin:12px 0;font-size:12px}
+#opmodal .stats div{display:flex;justify-content:space-between;color:#b9b4a2;border-bottom:1px dotted #2c342a;padding:3px 0}
+#opmodal .stats b{color:var(--bone)}
+#opmodal .xpwrap{height:9px;background:#22291f;border:1px solid var(--line);position:relative;margin:4px 0 14px}
+#opmodal .xpwrap i{position:absolute;inset:0;transform-origin:left;background:var(--amber)}
+#opmodal .skhead{display:flex;justify-content:space-between;align-items:center;margin:8px 0}
+#opmodal .skhead .pts{color:var(--amber2);font-size:12px;letter-spacing:.1em}
+.skrow{border:1px solid var(--line);background:var(--panel2);padding:10px 12px;margin:6px 0;display:flex;align-items:center;gap:12px}
+.skrow.owned{border-color:var(--green);background:#1a241a}
+.skrow .ico{font-size:20px}
+.skrow .info{flex:1}
+.skrow .info b{color:var(--amber2);letter-spacing:.05em}
+.skrow .info small{display:block;color:var(--dim);font-size:11px;margin-top:2px}
+.skrow button{background:var(--amber);border:none;color:#141109;padding:7px 12px;font-weight:bold;letter-spacing:.1em;font-size:11px;text-transform:uppercase}
+.skrow button:disabled{background:#2c342a;color:#5a6a58;cursor:not-allowed}
+.skrow .have{color:var(--green);font-size:11px;letter-spacing:.15em}
+
+/* wall of fame */
+#fame .wrap{width:min(900px,94vw)}
+#fame h2{font-size:36px;color:#c9c4b4}
+#fame .sub{color:var(--dim);letter-spacing:.3em;font-size:12px;text-transform:uppercase;margin-bottom:18px}
+#fame .list{max-height:60vh;overflow-y:auto}
+#fame .stone{border:1px solid var(--line);border-left:3px solid var(--red);background:linear-gradient(90deg,#1a1613,transparent);padding:14px 18px;margin:8px 0;display:flex;align-items:center;gap:16px}
+#fame .stone .cross{font-size:26px;color:#8d977f}
+#fame .stone .nm{font-family:var(--cond);font-size:20px;letter-spacing:.06em;text-transform:uppercase;color:var(--bone)}
+#fame .stone .cs{color:var(--blue);font-size:11px;letter-spacing:.1em}
+#fame .stone .det{margin-left:auto;text-align:right;color:var(--dim);font-size:11px;line-height:1.5}
+#fame .empty{color:var(--dim);text-align:center;padding:40px;letter-spacing:.15em}
+
+/* squad select */
+#squadsel .wrap{width:min(1080px,96vw)}
+#squadsel h2{font-size:32px}
+#squadsel .hint{color:var(--dim);letter-spacing:.1em;font-size:12px;margin:6px 0 14px}
+#squadsel .count{color:var(--amber2)}
+
+/* planning ghost badge */
+.act.plan.on{border-color:var(--green);background:rgba(127,176,105,.16)}
+#execbtn{width:112px;background:#14331c;border-color:#2f7a3a;color:#9ff0ad}
+#execbtn:hover:not(:disabled){background:#1a4d26;border-color:var(--green)}
 
 @media (max-width:900px){
   #squadbar{width:170px}.sq .bars{width:84px}
@@ -188,7 +265,10 @@ button{font-family:var(--mono);cursor:pointer}
   <div class="tag">Anthracite Interactive presents</div>
   <h1 class="stencil">BREACH<span>//</span>PROTOCOL</h1>
   <div class="sub">Turn-Based Close Quarters Tactics</div>
+  <button class="mbtn" onclick="UI.quickStart()">Quick Deploy<small>Jump straight into the first operation</small></button>
   <button class="mbtn" onclick="UI.toMissions()">Deploy<small>Select an operation and lead the entry team</small></button>
+  <button class="mbtn" onclick="UI.toBarracks()">Barracks<small>Recruit, train &amp; manage your operators</small></button>
+  <button class="mbtn" onclick="UI.toFame()">Wall of Fame<small>Honor the operators killed in action</small></button>
   <button class="mbtn" onclick="UI.showHelp()">Field Manual<small>Controls, mechanics &amp; rules of engagement</small></button>
   <div class="footer">v1.0 — ALL UNITS: WEAPONS TIGHT UNTIL BREACH</div>
 </div>
@@ -211,7 +291,7 @@ button{font-family:var(--mono);cursor:pointer}
     <div class="body" id="brf-body"></div>
     <div class="objs" id="brf-objs"></div>
     <div class="row" style="display:flex;gap:12px">
-      <button class="prime" onclick="UI.toLoadout()">Proceed to Loadout ▸</button>
+      <button class="prime" onclick="UI.toSquadSelect()">Assemble Squad ▸</button>
       <button class="ghost" onclick="UI.toMissions()">Abort</button>
     </div>
   </div>
@@ -228,6 +308,52 @@ button{font-family:var(--mono);cursor:pointer}
       <button class="ghost" onclick="UI.toMissions()">Back</button>
     </div>
   </div>
+</div>
+
+<!-- BARRACKS -->
+<div class="screen" id="barracks">
+  <div class="wrap">
+    <div class="tag">Task Force Roster</div>
+    <h2 class="stencil">Barracks</h2>
+    <div class="toolbar">
+      <button class="prime" onclick="UI.openRecruit()">+ Recruit Operator</button>
+      <button class="ghost" onclick="UI.toFame()">Wall of Fame</button>
+      <div class="credits">CREDITS <b id="bk-credits">0</b></div>
+    </div>
+    <div class="rgrid" id="rosterGrid"></div>
+    <div class="backrow"><button class="ghost" onclick="UI.show('menu')">← Back</button></div>
+  </div>
+</div>
+
+<!-- SQUAD SELECT -->
+<div class="screen" id="squadsel">
+  <div class="wrap">
+    <div class="tag">Deployment Manifest</div>
+    <h2 class="stencil">Assemble Entry Team</h2>
+    <div class="hint">Select up to four operators for this operation. <span class="count" id="sq-count">0 / 4</span></div>
+    <div class="rgrid" id="squadGrid"></div>
+    <div style="display:flex;gap:12px;margin-top:18px">
+      <button class="prime" id="sq-go" onclick="UI.toLoadout()">Proceed to Loadout ▸</button>
+      <button class="ghost" onclick="UI.openRecruit()">Recruit</button>
+      <button class="ghost" onclick="UI.toMissions()">Back</button>
+    </div>
+  </div>
+</div>
+
+<!-- WALL OF FAME -->
+<div class="screen" id="fame">
+  <div class="wrap">
+    <div class="tag">In Memoriam</div>
+    <h2 class="stencil">Wall of Fame</h2>
+    <div class="sub">Killed in the line of duty — never forgotten</div>
+    <div class="list" id="fameList"></div>
+    <div class="backrow"><button class="ghost" onclick="UI.show('menu')">← Back</button></div>
+  </div>
+</div>
+
+<!-- OPERATOR DETAIL MODAL -->
+<div id="opmodal">
+  <div class="card" id="opmodalcard"></div>
 </div>
 
 <!-- GAME -->
@@ -259,8 +385,10 @@ button{font-family:var(--mono);cursor:pointer}
     <h2 class="stencil" id="db-title">Mission Complete</h2>
     <div class="bigstars" id="db-stars"></div>
     <table id="db-table"></table>
+    <div class="prog" id="db-prog"></div>
     <div class="row">
       <button class="prime" onclick="UI.toMissions()">Operations Board</button>
+      <button class="ghost" onclick="UI.toBarracks()">Barracks</button>
       <button class="ghost" id="db-retry" onclick="Game.retry()">Retry</button>
     </div>
   </div>
@@ -385,6 +513,408 @@ const MISSIONS=[
 ]}
 ];
 
+/* ========== EXPANSION MISSIONS 05–24 (ids 4–23) ==========
+   new legend: 'I' intel item  'X' high-value target (must kill) */
+MISSIONS.push(
+{ id:4, name:"IRON WAREHOUSE", num:"OPERATION 05 — CONTRABAND", par:8,
+  brief:"A distribution warehouse on the industrial belt is a front for an arms ring. Recover the shipping manifests before the crew torches them.\nExpect scattered guards among the shelving. Use cover and cut their angles.",
+  objectives:[{type:"intel",label:"Recover the shipping manifests"},{type:"eliminate",label:"Neutralize all hostiles"}],
+  map:[
+",,,,,,,,,,,,,,,,,,,,,,",
+",,####################,",
+",,#..C...t...C....I..#,",
+",,#..........C.......#,",
+",,#..T...#####...p...#,",
+",,#......D...#.......#,",
+",,####...#.g.#..C....#,",
+",,#..C...#...D.......#,",
+",,#...t..#####...C..I#,",
+",,#..........q......##,",
+",,####D#########D####,,",
+",,,,,,#.........#,,,,,,",
+",,,,,1,2,,,,,3,4,,,,,,,",
+",,,,,,,,,,,,,,,,,,,,,,,"
+]},
+{ id:5, name:"GLASS TOWER", num:"OPERATION 06 — WHITE COLLAR", par:9,
+  brief:"Corporate raiders seized the 14th floor and grabbed an executive as leverage. Windows on two sides — mind your silhouette.\nSecure the hostage and clear the floor.",
+  objectives:[{type:"rescue",label:"Secure the executive"},{type:"eliminate",label:"Neutralize all hostiles"}],
+  map:[
+",,,,,,,,,,,,,,,,,,,,,,",
+",,#####WWWW#####WWW###,",
+",,#..t....#..g....R.#,",
+",,#...T...D........C#,",
+",,#.......#....T....W,",
+",,##D######...p.....#,",
+",,#.......#####D#####,",
+",,#..q....#.........#,",
+",,W...C...D...t.....#,",
+",,#.......#....C..T.#,",
+",,####D########D#####,",
+",,,,,,#........#,,,,,,",
+",,,,,1,2,,,,,3,4,,,,,,",
+",,,,,,,,,,,,,,,,,,,,,,"
+]},
+{ id:6, name:"LINE 4 PLATFORM", num:"OPERATION 07 — UNDERGROUND", par:9,
+  brief:"A cell leader is moving through the shuttered Line 4 station with an armed escort. Take him alive is off the table — put him down and scatter his men.",
+  objectives:[{type:"hvt",label:"Eliminate the cell leader"},{type:"eliminate",label:"Neutralize all hostiles"}],
+  map:[
+",,,,,,,,,,,,,,,,,,,,,,,,",
+",,######################,",
+",,#....t....C.....p....#,",
+",,#..T...........T.....#,",
+",,####...####D####...###,",
+",,#......#......#......#,",
+",,#..g...#...X..#..t...#,",
+",,#......D......D......#,",
+",,####...########...####,",
+",,#..C.......q........C#,",
+",,####D############D####,",
+",,,,,,#............#,,,,,",
+",,,,,1,2,,,,,,,,3,4,,,,,,",
+",,,,,,,,,,,,,,,,,,,,,,,,,"
+]},
+{ id:7, name:"RUSTED FREIGHTER", num:"OPERATION 08 — BLUE WATER", par:11, bomb:12,
+  brief:"Smugglers scuttling evidence rigged the cargo hold of a docked freighter to blow. Get below, kill the timer, and clear the deck crew.",
+  objectives:[{type:"defuse",label:"Defuse the scuttling charge"},{type:"eliminate",label:"Neutralize all hostiles"}],
+  map:[
+",,,,,,,,,,,,,,,,,,,,,,",
+",,####################,",
+",,#..t...#....#...g..#,",
+",,#..C...D....D...C..#,",
+",,#......#..B.#......#,",
+",,##D#####....#####D##,",
+",,#......#....#......#,",
+",,#..p...D..h.D...q..#,",
+",,#..C...#....#...C..#,",
+",,####D########D#####,",
+",,,,,,#..........#,,,,",
+",,,,,1,2,,,,,,3,4,,,,,",
+",,,,,,,,,,,,,,,,,,,,,,"
+]},
+{ id:8, name:"HILLCREST MANOR", num:"OPERATION 09 — HIGH SOCIETY", par:12,
+  brief:"A kidnapping crew holed up in a hillside estate with two members of a diplomat's family. Multiple rooms, multiple guns. Both hostages come home.",
+  objectives:[{type:"rescue",label:"Secure both hostages"},{type:"eliminate",label:"Neutralize all hostiles"}],
+  map:[
+",,,,,,,,,,,,,,,,,,,,,,,,",
+",,######################,",
+",,#..t..#..R..#....p..#,",
+",,#..T..D.....D..T....#,",
+",,#.....#..g..#.......#,",
+",,##D#######D#####D####,",
+",,#.....#.....#.......#,",
+",,#..R..#..q..#..t..C.#,",
+",,#..C..D.....D.......#,",
+",,#.....#..T..#..g....#,",
+",,####D#####D######D###,",
+",,,,,,#..............#,,",
+",,,,,1,2,,,,,,,,,3,4,,,,",
+",,,,,,,,,,,,,,,,,,,,,,,,"
+]},
+{ id:9, name:"SUBLEVEL P3", num:"OPERATION 10 — DEAD DROP", par:10,
+  brief:"A courier stashed a drive somewhere in a parking sublevel and the crew is sweeping for it too. Beat them to the intel and hold the ramp.",
+  objectives:[{type:"intel",label:"Recover the dead-drop drive"},{type:"eliminate",label:"Neutralize all hostiles"}],
+  map:[
+",,,,,,,,,,,,,,,,,,,,,,",
+",,####################,",
+",,#C..C..C..C..C..C.I#,",
+",,#..................#,",
+",,#..t....p.....q....#,",
+",,#..C..C..C..C..C...#,",
+",,####D#######D######,",
+",,#I.................#,",
+",,#..C..t..C..C..g...#,",
+",,#..................#,",
+",,####D#########D####,,",
+",,,,,,#...........#,,,,",
+",,,,,1,2,,,,,,3,4,,,,,,",
+",,,,,,,,,,,,,,,,,,,,,,,"
+]},
+{ id:10, name:"CLUB VERTIGO", num:"OPERATION 11 — LAST CALL", par:11,
+  brief:"A shooter took hostages in the VIP lounge after a deal went bad. Tight rooms, loud angles. Get the hostage out and end it.",
+  objectives:[{type:"rescue",label:"Secure the hostage"},{type:"eliminate",label:"Neutralize all hostiles"}],
+  map:[
+",,,,,,,,,,,,,,,,,,,,,,",
+",,####################,",
+",,#..t..#....#..R....#,",
+",,#..T..D....D...T...#,",
+",,#.....#.p..#.......#,",
+",,##D####....####D###,",
+",,#.....#....#......W,",
+",,#..g..D....D..q...#,",
+",,#..C..#..t.#..C...#,",
+",,####D######D#####D#,",
+",,,,,,#...........#,,,",
+",,,,,1,2,,,,,,3,4,,,,,",
+",,,,,,,,,,,,,,,,,,,,,,"
+]},
+{ id:11, name:"CONSULATE ROW", num:"OPERATION 12 — DIPLOMATIC", par:13,
+  brief:"Armed operatives stormed a consulate to steal a cipher and silence the station chief. Grab the cipher, take down their leader, leave nobody standing.",
+  objectives:[{type:"intel",label:"Secure the cipher"},{type:"hvt",label:"Eliminate the operative leader"},{type:"eliminate",label:"Neutralize all hostiles"}],
+  map:[
+",,,,,,,,,,,,,,,,,,,,,,,,",
+",,######################,",
+",,#..t..#..I..#...g...#,",
+",,#..T..D.....D..T....#,",
+",,#.....#..p..#.......#,",
+",,##D#######D######D###,",
+",,#.....#.....#.......#,",
+",,#..X..#..q..#..t..C.#,",
+",,#..C..D.....D.......#,",
+",,####D#####D######D###,",
+",,,,,,#..............#,,",
+",,,,,1,2,,,,,,,,,3,4,,,,",
+",,,,,,,,,,,,,,,,,,,,,,,,"
+]},
+{ id:12, name:"MERCY GENERAL", num:"OPERATION 13 — TRIAGE", par:12,
+  brief:"A gang shot its way into a hospital ward to finish a witness in recovery. Wards are full of cover and civilians already fled. Reach the witness first.",
+  objectives:[{type:"rescue",label:"Secure the witness"},{type:"eliminate",label:"Neutralize all hostiles"}],
+  map:[
+",,,,,,,,,,,,,,,,,,,,,,",
+",,####################,",
+",,#T..t.#.....#..R..T#,",
+",,#.....D..p..D......#,",
+",,#.....#.....#......#,",
+",,##D#######D######D#,",
+",,#.....#.....#......#,",
+",,#..g..#..T..#..t...#,",
+",,#.....D.....D...C..#,",
+",,#..q..#.....#......#,",
+",,####D#######D####D#,",
+",,,,,,#...........#,,,",
+",,,,,1,2,,,,,,3,4,,,,,",
+",,,,,,,,,,,,,,,,,,,,,,"
+]},
+{ id:13, name:"THE FOUNDRY", num:"OPERATION 14 — MELTDOWN", par:13, bomb:13,
+  brief:"A militia cell packed a decommissioned foundry with explosives to make a statement. Two of them are wearing plate. Defuse the charge and shut them all down.",
+  objectives:[{type:"defuse",label:"Defuse the main charge"},{type:"eliminate",label:"Neutralize all hostiles"}],
+  map:[
+",,,,,,,,,,,,,,,,,,,,,,,,",
+",,######################,",
+",,#..t...#....B...#..g#,",
+",,#..C...D........D...#,",
+",,#......#...h....#..C#,",
+",,##D#####........####,",
+",,#......#..T.....#...#,",
+",,#..h...D........D.t.#,",
+",,#..C...#...q....#...#,",
+",,####D#######D###D###,",
+",,,,,,#..............#,",
+",,,,,1,2,,,,,,,,3,4,,,,",
+",,,,,,,,,,,,,,,,,,,,,,,,"
+]},
+{ id:14, name:"SKYLINE PENTHOUSE", num:"OPERATION 15 — TOP FLOOR", par:12,
+  brief:"A trafficking kingpin is holding a witness in his penthouse while his enforcers guard the elevators. Put the kingpin in the ground and get the witness out.",
+  objectives:[{type:"hvt",label:"Eliminate the kingpin"},{type:"rescue",label:"Secure the witness"}],
+  map:[
+",,,,,,,,,,,,,,,,,,,,,,",
+",,#####WWWWWW#####WW##,",
+",,#..g....#...X.....#,",
+",,#..T....D.........W,",
+",,#.......#...C...R.#,",
+",,##D######....#####,,",
+",,#.......#....#....#,",
+",,#..t....D....D..q.#,",
+",,#..C....#..p.#..C.#,",
+",,####D#######D#####,,",
+",,,,,,#..........#,,,,",
+",,,,,1,2,,,,,3,4,,,,,,",
+",,,,,,,,,,,,,,,,,,,,,,"
+]},
+{ id:15, name:"PIER 9 DOCKS", num:"OPERATION 16 — LOW TIDE", par:12,
+  brief:"Container yard, pre-dawn. A smuggling crew is loading two crates of stolen tech. Tag the manifests off both and clear the yard before the truck rolls.",
+  objectives:[{type:"intel",label:"Recover both manifests"},{type:"eliminate",label:"Neutralize all hostiles"}],
+  map:[
+",,,,,,,,,,,,,,,,,,,,,,,,",
+",,######################,",
+",,#..C..I..#....#..p..C#,",
+",,#........D....D.....#,",
+",,#..t.....#..C.#..q..#,",
+",,##D#######....#####D#,",
+",,#........#....#.....#,",
+",,#..C..g..D....D..t.C#,",
+",,#.....I..#..C.#.....#,",
+",,####D########D###D##,",
+",,,,,,#.............#,,,",
+",,,,,1,2,,,,,,,,3,4,,,,,",
+",,,,,,,,,,,,,,,,,,,,,,,,"
+]},
+{ id:16, name:"GOLDEN ACE CASINO", num:"OPERATION 17 — ALL IN", par:14,
+  brief:"A heist crew botched a casino floor job and dug in with a hostage and their ringleader barricaded in the count room. Full house of hostiles. Play it clean.",
+  objectives:[{type:"rescue",label:"Secure the hostage"},{type:"hvt",label:"Eliminate the ringleader"},{type:"eliminate",label:"Neutralize all hostiles"}],
+  map:[
+",,,,,,,,,,,,,,,,,,,,,,,,",
+",,######################,",
+",,#..t..#..R..#....g..#,",
+",,#..T..D.....D..T....#,",
+",,#.....#..p..#.......#,",
+",,##D#######D######D###,",
+",,#.....#.....#.......#,",
+",,#..q..#..T..#..X..C.#,",
+",,#..C..D.....D..t....#,",
+",,####D#####D######D###,",
+",,,,,,#..............#,,",
+",,,,,1,2,,,,,,,,,3,4,,,,",
+",,,,,,,,,,,,,,,,,,,,,,,,"
+]},
+{ id:17, name:"COLDROW SERVERS", num:"OPERATION 18 — BLACKOUT", par:13,
+  brief:"A hacker crew is siphoning classified data from a server farm. Pull the two drives they've staged and neutralize the crew before the upload completes.",
+  objectives:[{type:"intel",label:"Recover both drives"},{type:"eliminate",label:"Neutralize all hostiles"}],
+  map:[
+",,,,,,,,,,,,,,,,,,,,,,",
+",,####################,",
+",,#I.C..#..t..#..C..I#,",
+",,#.....D.....D......#,",
+",,#..C..#..p..#..C...#,",
+",,##D#######D######D#,",
+",,#.....#.....#......#,",
+",,#..g..#..C..#..q...#,",
+",,#..C..D.....D...t..#,",
+",,####D#######D####D#,",
+",,,,,,#...........#,,,",
+",,,,,1,2,,,,,,3,4,,,,,",
+",,,,,,,,,,,,,,,,,,,,,,"
+]},
+{ id:18, name:"CELLBLOCK D", num:"OPERATION 19 — LOCKDOWN", par:13,
+  brief:"A prison riot turned into a hostage crisis — a guard is held in the block while inmates arm up from the armory. Get the guard, restore order by force.",
+  objectives:[{type:"rescue",label:"Secure the guard"},{type:"eliminate",label:"Neutralize all hostiles"}],
+  map:[
+",,,,,,,,,,,,,,,,,,,,,,,,",
+",,######################,",
+",,#..t.#..t.#..g.#..R.#,",
+",,#....D....D....D....#,",
+",,#....#....#....#....#,",
+",,##D#####D####D####D##,",
+",,#..................C#,",
+",,#..p......q......t..#,",
+",,#C..................#,",
+",,####D##########D####,",
+",,,,,,#..............#,,",
+",,,,,1,2,,,,,,,,,3,4,,,,",
+",,,,,,,,,,,,,,,,,,,,,,,,"
+]},
+{ id:19, name:"GATE 22 TERMINAL", num:"OPERATION 20 — DEPARTURES", par:14, bomb:14,
+  brief:"An extremist wired a bag at an airport gate and is holding a traveler at gunpoint. Defuse the device, get the civilian clear, and drop every shooter in the concourse.",
+  objectives:[{type:"defuse",label:"Defuse the device"},{type:"rescue",label:"Secure the traveler"},{type:"eliminate",label:"Neutralize all hostiles"}],
+  map:[
+",,,,,,,,,,,,,,,,,,,,,,,,",
+",,######WWWWWW#########,",
+",,#..t....#...B..#..R.#,",
+",,#..T....D......D....#,",
+",,#.......#..p...#..C.#,",
+",,##D#########D######,,",
+",,#.......#......#....#,",
+",,#..g....D..q...D..t.#,",
+",,#..C....#......#..C.#,",
+",,####D########D###D##,",
+",,,,,,#.............#,,,",
+",,,,,1,2,,,,,,,,3,4,,,,,",
+",,,,,,,,,,,,,,,,,,,,,,,,"
+]},
+{ id:20, name:"ST. AUGUST CATHEDRAL", num:"OPERATION 21 — SANCTUARY", par:13,
+  brief:"A doomsday cult barricaded inside a cathedral around their leader. The nave is wide open — cover is scarce and sightlines are long. End the standoff.",
+  objectives:[{type:"hvt",label:"Eliminate the cult leader"},{type:"eliminate",label:"Neutralize all hostiles"}],
+  map:[
+",,,,,,,,,,,,,,,,,,,,,,,,",
+",,######################,",
+",,#..t....C......C..g..#,",
+",,#....................#,",
+",,#..T....#....#....T..#,",
+",,#.......#.X..#.......#,",
+",,#..p....#....#....q..#,",
+",,#.......D....D.......#,",
+",,#..C....#.t..#....C..#,",
+",,####D##########D#####,",
+",,,,,,#..............#,,",
+",,,,,1,2,,,,,,,,,3,4,,,,",
+",,,,,,,,,,,,,,,,,,,,,,,,"
+]},
+{ id:21, name:"REDWOOD COMPOUND", num:"OPERATION 22 — OFF GRID", par:14,
+  brief:"A separatist compound in the treeline is stockpiling weapons and ledgers. Seize the ledgers and dismantle the garrison. They will not surrender.",
+  objectives:[{type:"intel",label:"Seize the ledgers"},{type:"eliminate",label:"Neutralize all hostiles"}],
+  map:[
+",,,,,,,,,,,,,,,,,,,,,,,,",
+",,######################,",
+",,#..t..#..I..#...p...#,",
+",,#..C..D.....D...C...#,",
+",,#.....#..h..#.......#,",
+",,##D#######D######D###,",
+",,#.....#.....#.......#,",
+",,#..g..#..C..#..t..C.#,",
+",,#..I..D.....D...q...#,",
+",,####D#####D######D###,",
+",,,,,,#..............#,,",
+",,,,,1,2,,,,,,,,,3,4,,,,",
+",,,,,,,,,,,,,,,,,,,,,,,,"
+]},
+{ id:22, name:"METRO HQ", num:"OPERATION 23 — HEADHUNT", par:15, bomb:15,
+  brief:"The syndicate's command node — their boss, a captive informant, and a fail-deadly charge all under one roof. Do it all, and do it fast.",
+  objectives:[{type:"rescue",label:"Secure the informant"},{type:"hvt",label:"Eliminate the syndicate boss"},{type:"defuse",label:"Defuse the fail-deadly charge"},{type:"eliminate",label:"Neutralize all hostiles"}],
+  map:[
+",,,,,,,,,,,,,,,,,,,,,,,,",
+",,######################,",
+",,#..g..#..R..#...B...#,",
+",,#..T..D.....D..T....#,",
+",,#.....#..p..#.......#,",
+",,##D#######D######D###,",
+",,#.....#.....#.......#,",
+",,#..X..#..h..#..t..C.#,",
+",,#..C..D.....D...q...#,",
+",,####D#####D######D###,",
+",,,,,,#..............#,,",
+",,,,,1,2,,,,,,,,,3,4,,,,",
+",,,,,,,,,,,,,,,,,,,,,,,,"
+]},
+{ id:23, name:"MERIDIAN SPIRE", num:"OPERATION 24 — ENDGAME", par:16, bomb:16,
+  brief:"The syndicate's last stand at the top of the Meridian Spire. Their leader, a hostage, stolen intel, and a device to bury it all. This is where it ends. Bring everyone home.",
+  objectives:[{type:"rescue",label:"Secure the hostage"},{type:"intel",label:"Recover the stolen intel"},{type:"defuse",label:"Defuse the device"},{type:"hvt",label:"Eliminate the syndicate leader"},{type:"eliminate",label:"Neutralize all hostiles"}],
+  map:[
+",,,,,,,,,,,,,,,,,,,,,,,,,,",
+",,########################,",
+",,#..g..#..R..#..I..#..t.#,",
+",,#..T..D.....D.....D....#,",
+",,#.....#..p..#..h..#..C.#,",
+",,##D#######D#####D#####D#,",
+",,#.....#.....#.....#....#,",
+",,#..X..#..B..#..q..#..t.#,",
+",,#..C..D.....D.....D..C.#,",
+",,#.....#..h..#..p..#....#,",
+",,####D#######D#####D####,",
+",,,,,,#.................#,,",
+",,,,,1,2,,,,,,,,,,,3,4,,,,,",
+",,,,,,,,,,,,,,,,,,,,,,,,,,,"
+]}
+);
+
+/* ================= CAREER DATA ================= */
+const FIRST_M=["Marcus","Dmitri","Cole","Rashid","Ivan","Diego","Kane","Owen","Silas","Hugo","Enzo","Kai","Leon","Nikolai","Andre","Boris","Cyrus","Dante","Emmet","Felix","Jonah","Malik","Theo","Viktor"];
+const FIRST_F=["Nadia","Mira","Selin","Petra","Yara","Ingrid","Zara","Lena","Freya","Alina","Noor","Sasha","Cass","Dara","Elke","Farah","Gina","Hana","Iris","Maya","Nova","Rhea","Sable","Tamsin"];
+const LAST=["Reyes","Okafor","Voss","Tanaka","Kowalski","Novak","Bishop","Cruz","Hale","Mercer","Sokolov","Vance","Diaz","Frost","Kessler","Lindqvist","Moreno","Petrov","Quinn","Rourke","Steele","Volkov","Wren","Yamada","Ziegler","Cardenas","Duval","Faulkner","Nakamura","Osei"];
+const CALLSIGNS=["Reaper","Ghost","Viper","Wraith","Havoc","Talon","Cobra","Onyx","Specter","Fang","Grizzly","Halo","Jester","Karma","Lynx","Nomad","Oracle","Phantom","Rook","Saint","Titan","Warden","Zephyr","Blitz","Echo","Gunny","Hex","Ironside"];
+const RANKS=[
+  {n:"Recruit",xp:0},{n:"Private",xp:120},{n:"Corporal",xp:320},{n:"Sergeant",xp:620},
+  {n:"Staff Sgt.",xp:1050},{n:"Lieutenant",xp:1650},{n:"Captain",xp:2500},
+  {n:"Major",xp:3700},{n:"Colonel",xp:5400},{n:"Elite",xp:8000}
+];
+const SKILLS={
+  steady:{name:"Steady Hands", desc:"+10% hit chance on every shot.", cls:"any", ico:"🎯"},
+  adrenaline:{name:"Adrenaline", desc:"+1 Action Point each turn.", cls:"any", ico:"⚡"},
+  ironwill:{name:"Iron Will", desc:"+25 maximum HP.", cls:"any", ico:"❤"},
+  gunslinger:{name:"Gunslinger", desc:"Firing costs 1 less AP (min 1).", cls:"any", ico:"🔫"},
+  ghost:{name:"Ghost", desc:"Gunfire makes far less noise.", cls:"any", ico:"👤"},
+  deadeye:{name:"Deadeye", desc:"+20% critical hit chance (1.6× damage).", cls:"marksman", ico:"👁"},
+  sharpshooter:{name:"Sharpshooter", desc:"+3 effective weapon range.", cls:"marksman", ico:"🔭"},
+  juggernaut:{name:"Juggernaut", desc:"+40 maximum armor.", cls:"breach", ico:"🛡"},
+  dynamic:{name:"Dynamic Entry", desc:"Breaching costs 1 less AP; wider stun.", cls:"breach", ico:"💥"},
+  fieldmedic:{name:"Field Medic", desc:"Heal +30 HP and revive downed allies.", cls:"medic", ico:"✚"},
+  stims:{name:"Combat Stims", desc:"Whole squad starts the mission with +2 AP.", cls:"medic", ico:"💉"},
+  executioner:{name:"Executioner", desc:"+30% damage vs stunned targets.", cls:"assault", ico:"☠"},
+  breachmaster:{name:"Point Man", desc:"+1 Action Point and +15 HP.", cls:"assault", ico:"🚀"}
+};
+function skillsFor(cls){ return Object.keys(SKILLS).filter(k=>SKILLS[k].cls==='any'||SKILLS[k].cls===cls); }
+function levelOf(xp){ let l=0; for(let i=0;i<RANKS.length;i++) if(xp>=RANKS[i].xp) l=i; return l; }
+function rankName(xp){ return RANKS[levelOf(xp)].n; }
+function xpProgress(xp){ const l=levelOf(xp); const cur=RANKS[l].xp, nxt=l+1<RANKS.length?RANKS[l+1].xp:cur; return nxt>cur?(xp-cur)/(nxt-cur):1; }
+
 /* ================= AUDIO ================= */
 const SFX=(()=>{
   let ctx=null, master=null;
@@ -423,7 +953,56 @@ const G={
   stats:{shots:0,hits:0,kills:0,dmgTaken:0},
   bombTimer:0, doorAnim:{}
 };
-const PROGRESS={unlocked:1, stars:[0,0,0,0]}; // session only
+const PROGRESS={unlocked:1, stars:new Array(MISSIONS.length).fill(0)};
+
+/* ================= CAREER (persistent) ================= */
+const Career={
+  roster:[], fallen:[], credits:0, nextId:1, squad:[], stimActive:false,
+  key:'breach_career_v1',
+  load(){
+    try{
+      const raw=localStorage.getItem(Career.key);
+      if(raw){
+        const d=JSON.parse(raw);
+        Career.roster=d.roster||[]; Career.fallen=d.fallen||[]; Career.credits=d.credits||0;
+        Career.nextId=d.nextId||1;
+        PROGRESS.unlocked=d.unlocked||1;
+        const st=d.stars||[]; for(let i=0;i<PROGRESS.stars.length;i++) PROGRESS.stars[i]=st[i]||0;
+      }
+    }catch(e){}
+    if(!Career.roster.length) Career.seed();
+  },
+  save(){
+    try{
+      localStorage.setItem(Career.key, JSON.stringify({
+        roster:Career.roster, fallen:Career.fallen, credits:Career.credits,
+        nextId:Career.nextId, unlocked:PROGRESS.unlocked, stars:PROGRESS.stars
+      }));
+    }catch(e){}
+  },
+  seed(){
+    // starting task force: one of each class + two extras
+    const start=['assault','breach','marksman','medic','assault','marksman'];
+    Career.roster=[]; Career.fallen=[]; Career.credits=300; Career.nextId=1;
+    start.forEach(c=>Career.roster.push(Career.makeOperator(c)));
+    Career.save();
+  },
+  makeOperator(cls, level){
+    const female=Math.random()<0.45;
+    const first=(female?FIRST_F:FIRST_M)[irnd(0,(female?FIRST_F:FIRST_M).length-1)];
+    const last=LAST[irnd(0,LAST.length-1)];
+    const cs=CALLSIGNS[irnd(0,CALLSIGNS.length-1)];
+    const lvl=level||0;
+    const op={ id:Career.nextId++, first, last, name:(first+' '+last).toUpperCase(),
+      callsign:cs, cls, gender:female?'F':'M',
+      xp:lvl>0?RANKS[Math.min(lvl,RANKS.length-1)].xp:0, skillPoints:lvl, skills:[],
+      kills:0, missions:0 };
+    // auto-pick skills for pre-leveled recruits
+    if(lvl>0){ const pool=skillsFor(cls); for(let i=0;i<lvl&&op.skills.length<pool.length;i++){ const s=pool[irnd(0,pool.length-1)]; if(!op.skills.includes(s)){op.skills.push(s);op.skillPoints--;} } }
+    return op;
+  },
+  memberById(id){ return Career.roster.find(m=>m.id===id); }
+};
 const key=(x,y)=>x+','+y;
 const rnd=(a,b)=>a+Math.random()*(b-a);
 const irnd=(a,b)=>Math.floor(rnd(a,b+1));
@@ -442,6 +1021,7 @@ function occupied(x,y){
 /* ---------- map parsing ---------- */
 function loadMission(m, loadouts){
   G.mission=m; G.grid=[]; G.ops=[]; G.enemies=[]; G.hostages=[]; G.bomb=null;
+  G.intel=[]; G.hvt=null; G.planMode=false;
   G.turn=1; G.phase='player'; G.selected=0; G.mode=null; G.over=false; G.busy=false;
   G.visible=new Set(); G.explored=new Set(); G.doorAnim={};
   G.fx={tracers:[],parts:[],decals:[],floats:[],shake:0,rings:[]};
@@ -457,28 +1037,52 @@ function loadMission(m, loadouts){
       else if(c==='t'||c==='p'){ addEnemy('thug',x,y,c==='p'); c='.'; }
       else if(c==='g'||c==='q'){ addEnemy('gunman',x,y,c==='q'); c='.'; }
       else if(c==='h'){ addEnemy('heavy',x,y,false); c='.'; }
+      else if(c==='X'){ const e=addEnemy('heavy',x,y,false); e.hvt=true; e.name='HVT'; e.hp=e.maxhp=170; e.armor=90; G.hvt=e; c='.'; }
       else if(c==='R'){ G.hostages.push({x,y,alive:true,secured:false,name:'Hostage '+(G.hostages.length+1)}); c='.'; }
       else if(c==='B'){ G.bomb={x,y,defused:false}; c='.'; }
+      else if(c==='I'){ G.intel.push({x,y,taken:false,name:'Intel '+(G.intel.length+1)}); c='.'; }
       row.push(c);
     }
     G.grid.push(row);
   }
-  OP_NAMES.forEach((o,i)=>{
-    const cls=CLASSES[o.cls], sp=spawns[String(i+1)]||{x:2,y:2};
+  // build operators from selected squad (fallback to default 4)
+  const squad=(G.squad&&G.squad.length)?G.squad:OP_NAMES.map(o=>Career.makeOperator(o.cls));
+  let anyStims=false;
+  squad.forEach((member,i)=>{
+    const cls=CLASSES[member.cls], sp=spawns[String(i+1)]||{x:2,y:2};
     const w=WEAPONS[loadouts&&loadouts[i]?loadouts[i]:cls.weapons[0]];
-    G.ops.push({ id:i, name:o.name, cls:o.cls, x:sp.x, y:sp.y, fx:sp.x, fy:sp.y,
-      hp:cls.hp, maxhp:cls.hp, armor:cls.armor, maxarmor:cls.armor,
-      ap:cls.ap, maxap:cls.ap, weapon:w, gear:{...cls.gear},
-      alive:true, overwatch:false, facing:-Math.PI/2, stunned:0, bob:0 });
+    const sk=member.skills||[];
+    let maxhp=cls.hp, maxarmor=cls.armor, maxap=cls.ap;
+    if(sk.includes('ironwill')) maxhp+=25;
+    if(sk.includes('breachmaster')){ maxhp+=15; maxap+=1; }
+    if(sk.includes('juggernaut')) maxarmor+=40;
+    if(sk.includes('adrenaline')) maxap+=1;
+    if(sk.includes('stims')) anyStims=true;
+    const op={ id:i, member, name:member.name, cls:member.cls, x:sp.x, y:sp.y, fx:sp.x, fy:sp.y,
+      hp:maxhp, maxhp, armor:maxarmor, maxarmor, ap:maxap, maxap,
+      weapon:w, gear:{...cls.gear}, skills:sk, mkills:0, plan:null,
+      accBonus:sk.includes('steady')?10:0,
+      rangeBonus:sk.includes('sharpshooter')?3:0,
+      apDiscount:sk.includes('gunslinger')?1:0,
+      crit:sk.includes('deadeye')?0.20:0,
+      exec:sk.includes('executioner')?0.30:0,
+      breachDiscount:sk.includes('dynamic')?1:0,
+      medicPlus:sk.includes('fieldmedic'),
+      quiet:sk.includes('ghost'),
+      alive:true, overwatch:false, facing:-Math.PI/2, stunned:0, bob:0 };
+    G.ops.push(op);
   });
+  if(anyStims){ G.ops.forEach(o=>o.ap+=2); G.stimActive=true; } else G.stimActive=false;
   computeFOV();
   centerCam(G.ops[0]);
 }
 function addEnemy(type,x,y,patrol){
   const t=ENEMY_TYPES[type];
-  G.enemies.push({ type, x, y, fx:x, fy:y, hp:t.hp, maxhp:t.hp, armor:t.armor,
+  const e={ type, x, y, fx:x, fy:y, hp:t.hp, maxhp:t.hp, armor:t.armor,
     alive:true, alert:false, patrol, facing:rnd(0,Math.PI*2), stunned:0,
-    lastKnown:null, name:t.name, bob:0 });
+    lastKnown:null, name:t.name, bob:0 };
+  G.enemies.push(e);
+  return e;
 }
 
 /* ---------- LOS / FOV ---------- */
@@ -544,12 +1148,16 @@ function coverBonus(target, shooter){
 }
 function hitChance(shooter, target, w){
   const d=dist(shooter,target);
-  let ch=w.acc - Math.max(0,(d-w.optimal))*w.falloff - coverBonus(target,shooter);
+  const rb=shooter.rangeBonus||0;
+  let ch=w.acc - Math.max(0,(d-w.optimal-rb))*w.falloff - coverBonus(target,shooter);
+  if(shooter.accBonus) ch+=shooter.accBonus;
   if(target.stunned>0) ch+=30;
   if(shooter.stunned>0) ch-=35;
   if(shooter.reaction) ch-=12;
   return clamp(Math.round(ch),5,97);
 }
+function opShootCost(op){ return Math.max(1,op.weapon.apCost-(op.apDiscount||0)); }
+function opRange(op){ return op.weapon.range+(op.rangeBonus||0); }
 function makeAlert(e,x,y){
   if(!e.alert){ e.alert=true; e.alertSince=G.turn; }
   if(x!==undefined) e.lastKnown={x,y};
@@ -620,6 +1228,10 @@ async function shootAt(shooter, target, isOp){
       anyHit=true;
       const dmgR=isOp?w.dmg:ENEMY_TYPES[shooter.type].weapon.dmg;
       let dmg=irnd(dmgR[0],dmgR[1]);
+      if(isOp){
+        if(shooter.exec&&target.stunned>0) dmg=Math.round(dmg*(1+shooter.exec));
+        if(shooter.crit&&Math.random()<shooter.crit){ dmg=Math.round(dmg*1.6); floatText(target.x,target.y-8,'CRIT','#ffd24a'); }
+      }
       if(target.armor>0){ const abs=Math.min(target.armor,Math.ceil(dmg*0.6)); target.armor-=abs; dmg-=abs; }
       target.hp-=dmg; totalDmg+=dmg;
       bloodBurst(target);
@@ -629,14 +1241,15 @@ async function shootAt(shooter, target, isOp){
     SFX.hit(); if(isOp)G.stats.hits++;
     else G.stats.dmgTaken+=totalDmg;
     floatText(target.x,target.y,'-'+totalDmg,'#ff6b5e');
-    if(target.hp<=0) killEntity(target,isOp);
+    if(target.hp<=0){ if(isOp&&shooter.mkills!==undefined) shooter.mkills++; killEntity(target,isOp); }
   } else {
     floatText(target.x,target.y,'MISS','#9aa38f');
     // sparks on nearby wall
     G.fx.parts.push(...spark(target.fx*TILE+TILE/2+rnd(-20,20),target.fy*TILE+TILE/2+rnd(-20,20)));
   }
   // noise
-  const nr=isOp?shooter.weapon.noise:10;
+  let nr=isOp?shooter.weapon.noise:10;
+  if(isOp&&shooter.quiet) nr=Math.ceil(nr*0.45);
   noiseAlert(shooter.x,shooter.y,nr);
   await wait(240);
   computeFOV(); UI.refresh();
@@ -660,10 +1273,11 @@ async function enemyShoot(e,op,reaction){
 /* ----- player action handlers ----- */
 async function actShoot(target){
   const op=selOp(), w=op.weapon;
-  if(op.ap<w.apCost) return log('Not enough AP.','amb');
-  if(dist(op,target)>w.range) return log('Target out of range.','amb');
+  const cost=opShootCost(op);
+  if(op.ap<cost) return log('Not enough AP.','amb');
+  if(dist(op,target)>opRange(op)) return log('Target out of range.','amb');
   if(!losClear(op.x,op.y,target.x,target.y)) return log('No line of sight.','amb');
-  op.ap-=w.apCost; op.overwatch=false;
+  op.ap-=cost; op.overwatch=false;
   G.busy=true;
   await shootAt(op,target,true);
   G.busy=false; UI.refresh(); checkEnd();
@@ -671,7 +1285,8 @@ async function actShoot(target){
 async function actDoor(dx,dy,mode){ // mode: open|kick|c2
   const op=selOp(); const x=op.x+dx,y=op.y+dy;
   if(tile(x,y)!=='D') return;
-  const costs={open:1,kick:2,c2:3};
+  const disc=op.breachDiscount||0;
+  const costs={open:1,kick:Math.max(1,2-disc),c2:Math.max(1,3-disc)};
   if(op.ap<costs[mode]) return log('Not enough AP.','amb');
   if(mode==='c2'){ if(op.gear.c2<=0)return log('No C2 charges left.','amb'); op.gear.c2--; }
   op.ap-=costs[mode]; op.facing=Math.atan2(dy,dx);
@@ -679,12 +1294,13 @@ async function actDoor(dx,dy,mode){ // mode: open|kick|c2
   if(mode==='open'){ setTile(x,y,'.'); SFX.click(); log(`${op.name} opens the door quietly.`); noiseAlert(x,y,2); }
   if(mode==='kick'){ setTile(x,y,'.'); SFX.kick(); G.fx.shake=6; log(`${op.name} kicks the door in!`,'amb'); noiseAlert(x,y,6); }
   if(mode==='c2'){
+    const rad=2.5+(disc?1:0);
     setTile(x,y,'.'); SFX.breach(); G.fx.shake=16; flashScreen(.35);
-    G.fx.rings.push({x:x*TILE+TILE/2,y:y*TILE+TILE/2,r:6,max:TILE*2.6,color:'#ffd28a',life:1});
+    G.fx.rings.push({x:x*TILE+TILE/2,y:y*TILE+TILE/2,r:6,max:TILE*(2.6+disc*0.8),color:'#ffd28a',life:1});
     smokeBurst(x,y);
     log(`${op.name} blows the door with C2! Hostiles inside are stunned.`,'amb');
     noiseAlert(x,y,12);
-    for(const e of G.enemies) if(e.alive&&Math.hypot(e.x-x,e.y-y)<=2.5){ e.stunned=2; floatText(e.x,e.y,'STUNNED','#ffd28a'); }
+    for(const e of G.enemies) if(e.alive&&Math.hypot(e.x-x,e.y-y)<=rad){ e.stunned=2; floatText(e.x,e.y,'STUNNED','#ffd28a'); }
   }
   await wait(300); computeFOV(); G.busy=false; UI.refresh();
 }
@@ -715,7 +1331,7 @@ async function actGrenade(tx,ty,type){ // flash|frag
         let dmg=Math.round(rnd(45,75)*(1-d/3.4));
         if(t.armor>0){const abs=Math.min(t.armor,Math.ceil(dmg*0.5));t.armor-=abs;dmg-=abs;}
         t.hp-=dmg; bloodBurst(t); floatText(t.x,t.y,'-'+dmg,'#ff6b5e');
-        if(t.hp<=0){ if(isHost){t.alive=false;log('⚠ A HOSTAGE WAS KILLED BY THE BLAST!','red');} else killEntity(t,true); }
+        if(t.hp<=0){ if(isHost){t.alive=false;log('⚠ A HOSTAGE WAS KILLED BY THE BLAST!','red');} else { if(op.mkills!==undefined)op.mkills++; killEntity(t,true); } }
       }
     };
     G.enemies.filter(e=>e.alive).forEach(e=>hurt(e,false));
@@ -746,11 +1362,26 @@ async function actMedkit(target){
   if(op.ap<5)return log('Need 5 AP.','amb');
   if(Math.hypot(op.x-target.x,op.y-target.y)>1.6)return log('Get adjacent to patch them up.','amb');
   op.gear.med--; op.ap-=5;
-  const heal=Math.min(55, target.maxhp-target.hp);
+  const amt=op.medicPlus?85:55;
+  if(!target.alive&&op.medicPlus){
+    target.alive=true; target.hp=Math.round(target.maxhp*0.4); target.armor=Math.max(target.armor,10); target.stunned=1;
+    SFX.heal(); floatText(target.x,target.y,'REVIVED','#8fe08a');
+    log(`${op.name} drags ${target.name} back into the fight!`,'grn');
+    computeFOV(); UI.refresh(); return;
+  }
+  const heal=Math.min(amt, target.maxhp-target.hp);
   target.hp+=heal;
   SFX.heal(); floatText(target.x,target.y,'+'+heal,'#8fe08a');
   log(`${op.name} patches ${target===op?'themselves':target.name} (+${heal} HP).`,'grn');
   UI.refresh();
+}
+async function actSecureIntel(it){
+  const op=selOp();
+  if(op.ap<2)return log('Need 2 AP to grab it.','amb');
+  op.ap-=2; it.taken=true;
+  SFX.heal(); floatText(it.x,it.y,'ACQUIRED','#8fe08a');
+  log(`${op.name} recovers ${it.name}.`,'grn');
+  UI.refresh(); checkEnd();
 }
 async function actSecure(h){
   const op=selOp();
@@ -767,6 +1398,26 @@ async function actDefuse(){
   SFX.heal(); G.fx.rings.push({x:G.bomb.x*TILE+TILE/2,y:G.bomb.y*TILE+TILE/2,r:4,max:TILE*1.6,color:'#8fe08a',life:1});
   log(`${op.name} cuts the wire. Device is SAFE.`,'grn');
   UI.refresh(); checkEnd();
+}
+
+/* ----- planning phase ----- */
+function togglePlan(){ if(!G.mission)return; G.planMode=!G.planMode; if(!G.planMode)G.hoverPath=null; SFX.click(); UI.refresh(); }
+function clearPlans(){ G.ops.forEach(o=>o.plan=null); SFX.click(); UI.refresh(); }
+function plannedCount(){ return G.ops.filter(o=>o.alive&&o.plan&&o.plan.length).length; }
+async function executePlans(){
+  if(G.busy||G.over||G.phase!=='player') return;
+  const pending=G.ops.filter(o=>o.alive&&o.plan&&o.plan.length);
+  if(!pending.length){ log('No moves planned. Toggle PLAN, click tiles, then Execute.','amb'); return; }
+  G.planMode=false; G.hoverPath=null;
+  log(`Executing ${pending.length} planned ${pending.length>1?'moves':'move'}…`,'blue');
+  for(const o of pending){
+    const plan=o.plan; o.plan=null;
+    if(!o.alive) continue;
+    G.selected=G.ops.indexOf(o); UI.refresh();
+    await moveOp(o, plan);
+    if(G.over) return;
+  }
+  UI.refresh();
 }
 
 /* ================= TURN FLOW & ENEMY AI ================= */
@@ -916,6 +1567,8 @@ function objectivesState(){
     if(o.type==='eliminate') return {...o,done:G.enemies.every(e=>!e.alive)};
     if(o.type==='rescue') return {...o,done:G.hostages.every(h=>h.secured&&h.alive)};
     if(o.type==='defuse') return {...o,done:G.bomb&&G.bomb.defused};
+    if(o.type==='intel') return {...o,done:G.intel.length>0&&G.intel.every(it=>it.taken)};
+    if(o.type==='hvt') return {...o,done:G.hvt&&!G.hvt.alive};
     return {...o,done:false};
   });
 }
@@ -1197,6 +1850,30 @@ function render(){
   // hostages
   for(const h of G.hostages) if(h.alive&&G.explored.has(key(h.x,h.y))) drawHostage(h);
 
+  // intel items
+  if(G.intel) for(const it of G.intel){ if(it.taken||!G.explored.has(key(it.x,it.y)))continue;
+    const ix=it.x*TILE+TILE/2, iy=it.y*TILE+TILE/2;
+    const pulse=1+Math.sin(performance.now()/260)*0.12;
+    ctx.fillStyle='#1a2733'; ctx.fillRect(ix-8,iy-6,16,12);
+    ctx.strokeStyle='#57a8e0'; ctx.lineWidth=1.5; ctx.strokeRect(ix-8,iy-6,16,12);
+    ctx.fillStyle=`rgba(120,190,235,${0.5*pulse})`; ctx.fillRect(ix-5,iy-3,10,6);
+    ctx.fillStyle='#9fd0f0'; ctx.font='bold 9px monospace'; ctx.textAlign='center';
+    ctx.fillText('INTEL',ix,iy-11); ctx.textAlign='left'; ctx.lineWidth=1;
+  }
+
+  // planning ghost routes
+  if(G.planMode){
+    G.ops.forEach((o,i)=>{ if(!o.alive||!o.plan||!o.plan.length)return;
+      const col=i===G.selected?'127,240,173':'90,200,140';
+      ctx.fillStyle=`rgba(${col},.8)`;
+      for(const s of o.plan){ ctx.beginPath(); ctx.arc(s.x*TILE+TILE/2,s.y*TILE+TILE/2,3,0,7); ctx.fill(); }
+      const last=o.plan[o.plan.length-1];
+      ctx.globalAlpha=.5; drawHuman(last.x*TILE+TILE/2,last.y*TILE+TILE/2,-Math.PI/2,{skin:CLASSES[o.cls].skin,camo:CLASSES[o.cls].camo,helmet:true,vest:'#2c332b',weaponLen:18}); ctx.globalAlpha=1;
+      ctx.fillStyle=`rgb(${col})`; ctx.font='bold 10px monospace'; ctx.textAlign='center';
+      ctx.fillText((i+1)+' ▸ '+(last.cost||0).toFixed(1)+'AP',last.x*TILE+TILE/2,last.y*TILE-6); ctx.textAlign='left';
+    });
+  }
+
   // path preview
   if(G.hoverPath&&G.phase==='player'&&!G.busy){
     ctx.fillStyle='rgba(232,163,61,.85)';
@@ -1230,6 +1907,7 @@ function render(){
     if(e.armor>0){ ctx.fillStyle='#57a8e0'; ctx.fillRect(px-12,py-15.5,24*(e.armor/ENEMY_TYPES[e.type].armor||1),1.5); }
     if(!e.alert){ ctx.fillStyle='#ffd25e'; ctx.font='bold 12px monospace'; ctx.fillText('?',px+14,py-12); }
     else { ctx.fillStyle='#ff5e5e'; ctx.font='bold 12px monospace'; ctx.fillText('!',px+14,py-12); }
+    if(e.hvt){ ctx.fillStyle='#ff5e5e'; ctx.font='bold 10px monospace'; ctx.textAlign='center'; ctx.fillText('✦ HVT',px,py-22); ctx.textAlign='left'; }
   }
 
   // operators
@@ -1241,7 +1919,7 @@ function render(){
       ctx.beginPath(); ctx.arc(px,py,15,performance.now()/600,performance.now()/600+5); ctx.stroke(); ctx.lineWidth=1;
     }
     drawHuman(px,py,o.facing,{skin:CLASSES[o.cls].skin,camo:CLASSES[o.cls].camo,helmet:true,vest:'#2c332b',weaponLen:o.weapon.name==='MK12 SPR'?24:(o.weapon.name==='P226'?10:18),stunned:o.stunned>0,bob:o.bob});
-    if(o.overwatch){ ctx.strokeStyle='rgba(87,168,224,.5)'; ctx.setLineDash([3,5]); ctx.beginPath(); ctx.arc(px,py,o.weapon.range*TILE,0,7); ctx.stroke(); ctx.setLineDash([]);
+    if(o.overwatch){ ctx.strokeStyle='rgba(87,168,224,.5)'; ctx.setLineDash([3,5]); ctx.beginPath(); ctx.arc(px,py,opRange(o)*TILE,0,7); ctx.stroke(); ctx.setLineDash([]);
       ctx.fillStyle='#7fbdea'; ctx.font='bold 9px monospace'; ctx.textAlign='center'; ctx.fillText('OVERWATCH',px,py-20); ctx.textAlign='left'; }
     // number tag
     ctx.fillStyle='#0d120e'; ctx.beginPath(); ctx.arc(px-12,py-12,6,0,7); ctx.fill();
@@ -1302,6 +1980,7 @@ function drawMinimap(){
   }
   for(const e of G.enemies) if(e.alive&&G.visible.has(key(e.x,e.y))){ mctx.fillStyle='#e04a3d'; mctx.fillRect(e.x*s,e.y*s,s,s); }
   for(const h of G.hostages) if(h.alive&&G.explored.has(key(h.x,h.y))){ mctx.fillStyle='#ffd25e'; mctx.fillRect(h.x*s,h.y*s,s,s); }
+  if(G.intel) for(const it of G.intel) if(!it.taken&&G.explored.has(key(it.x,it.y))){ mctx.fillStyle='#57a8e0'; mctx.fillRect(it.x*s,it.y*s,s,s); }
   for(const o of G.ops) if(o.alive){ mctx.fillStyle='#57a8e0'; mctx.fillRect(o.x*s,o.y*s,s,s); }
   // camera box
   mctx.strokeStyle='rgba(232,163,61,.6)';
@@ -1328,11 +2007,11 @@ cv.addEventListener('mousemove',e=>{
   const op=selOp();
   if(en&&op.alive&&!G.mode){
     G.hoverPath=null;
-    const w=op.weapon, inR=dist(op,en)<=w.range, los=losClear(op.x,op.y,en.x,en.y);
+    const w=op.weapon, inR=dist(op,en)<=opRange(op), los=losClear(op.x,op.y,en.x,en.y);
     tip.style.display='block'; tip.style.left=(e.clientX+16)+'px'; tip.style.top=(e.clientY+12)+'px';
     if(!los) tip.innerHTML=`<b>${en.name}</b><br>NO LINE OF SIGHT`;
-    else if(!inR) tip.innerHTML=`<b>${en.name}</b><br>OUT OF RANGE (${dist(op,en).toFixed(1)} / ${w.range})`;
-    else tip.innerHTML=`<b>${en.name}</b> — HP ${en.hp}${en.armor>0?' +AR '+en.armor:''}<br>HIT CHANCE: <b>${hitChance(op,en,w)}%</b> · COST ${w.apCost} AP${coverBonus(en,op)>0?'<br><span style="color:#8fb0c8">TARGET IN COVER</span>':''}`;
+    else if(!inR) tip.innerHTML=`<b>${en.name}</b><br>OUT OF RANGE (${dist(op,en).toFixed(1)} / ${opRange(op)})`;
+    else tip.innerHTML=`<b>${en.name}</b> — HP ${en.hp}${en.armor>0?' +AR '+en.armor:''}<br>HIT CHANCE: <b>${hitChance(op,en,w)}%</b> · COST ${opShootCost(op)} AP${coverBonus(en,op)>0?'<br><span style="color:#8fb0c8">TARGET IN COVER</span>':''}`;
     return;
   }
   tip.style.display='none';
@@ -1372,17 +2051,21 @@ cv.addEventListener('click',e=>{
   // click hostage adjacent → secure
   const h=G.hostages.find(h=>h.alive&&!h.secured&&h.x===t.x&&h.y===t.y);
   if(h){ if(Math.hypot(op.x-h.x,op.y-h.y)<1.6) actSecure(h); else log('Move adjacent to the hostage to secure them.','amb'); return; }
+  // click intel adjacent → recover
+  const it=G.intel&&G.intel.find(it=>!it.taken&&it.x===t.x&&it.y===t.y);
+  if(it){ if(Math.hypot(op.x-it.x,op.y-it.y)<1.6) actSecureIntel(it); else log('Move adjacent to the intel to recover it.','amb'); return; }
   // click bomb adjacent → defuse
   if(G.bomb&&!G.bomb.defused&&G.bomb.x===t.x&&G.bomb.y===t.y){
     if(Math.hypot(op.x-t.x,op.y-t.y)<1.6) actDefuse(); else log('Get adjacent to the device to defuse.','amb'); return;
   }
   // click door adjacent → quiet open by default
   if(tile(t.x,t.y)==='D'&&Math.hypot(op.x-t.x,op.y-t.y)<1.6){ actDoor(t.x-op.x,t.y-op.y,'open'); return; }
-  // move
+  // move (or plan the move)
   if(!blocksMove(t.x,t.y)){
     const path=findPath(op.x,op.y,t.x,t.y,op.ap);
-    if(path) moveOp(op,path);
-    else log('Cannot reach that position this turn.','amb');
+    if(!path){ log('Cannot reach that position this turn.','amb'); return; }
+    if(G.planMode){ op.plan=path; SFX.click(); UI.refresh(); }
+    else moveOp(op,path);
   }
 });
 
@@ -1398,9 +2081,11 @@ addEventListener('keydown',e=>{
   if(k==='m')actMedkit(selOp());
   if(k==='c')UI.doorAction('c2');
   if(k==='k')UI.doorAction('kick');
+  if(k==='p'){ togglePlan(); }
+  if(k==='x'){ e.preventDefault(); executePlans(); }
   if(k==='tab'){ e.preventDefault(); let i=G.selected; for(let n=0;n<4;n++){ i=(i+1)%4; if(G.ops[i].alive)break; } G.selected=i; SFX.click(); UI.refresh(); centerCam(G.ops[i]); }
   if(k===' '||k==='enter'){ e.preventDefault(); endTurn(); }
-  if(k==='escape'){ G.mode=null; UI.refresh(); }
+  if(k==='escape'){ G.mode=null; G.planMode=false; UI.refresh(); }
 });
 
 /* ================= UI ================= */
@@ -1422,6 +2107,13 @@ const UI={
     });
     UI.show('missions');
   },
+  quickStart(){
+    Game.pending=MISSIONS[0];
+    Career.squad=Career.roster.slice(0,4);
+    G.squad=Career.squad;
+    Game.loadouts=Career.squad.map(m=>CLASSES[m.cls].weapons[0]);
+    Game.start();
+  },
   toBriefing(i){
     Game.pending=MISSIONS[i];
     document.getElementById('brf-num').textContent=Game.pending.num;
@@ -1430,24 +2122,75 @@ const UI={
     document.getElementById('brf-objs').innerHTML=Game.pending.objectives.map(o=>`<div>${o.label}</div>`).join('')+(Game.pending.bomb?`<div>Beat the ${Game.pending.bomb}-turn IED timer</div>`:'');
     UI.show('briefing');
   },
+  /* ---------- squad select ---------- */
+  toSquadSelect(){
+    if(!Career.squad) Career.squad=[];
+    // keep only still-existing members
+    Career.squad=Career.squad.filter(m=>Career.memberById(m.id));
+    UI.renderSquadSelect();
+    UI.show('squadsel');
+  },
+  renderSquadSelect(){
+    const g=document.getElementById('squadGrid'); g.innerHTML='';
+    Career.roster.forEach(m=>{
+      const sel=Career.squad.some(s=>s.id===m.id);
+      const card=UI.buildRosterCard(m, sel);
+      card.onclick=()=>{
+        const idx=Career.squad.findIndex(s=>s.id===m.id);
+        if(idx>=0) Career.squad.splice(idx,1);
+        else { if(Career.squad.length>=4){ log&&0; return UI.flashCount(); } Career.squad.push(m); }
+        SFX.click(); UI.renderSquadSelect();
+      };
+      g.appendChild(card);
+    });
+    document.getElementById('sq-count').textContent=Career.squad.length+' / 4';
+    document.getElementById('sq-go').disabled=Career.squad.length===0;
+    document.getElementById('sq-go').style.opacity=Career.squad.length===0?0.4:1;
+  },
+  flashCount(){ const c=document.getElementById('sq-count'); c.style.color='#d64541'; setTimeout(()=>c.style.color='',400); },
+  buildRosterCard(m, selected){
+    const cls=CLASSES[m.cls];
+    const card=document.createElement('button');
+    card.className='rcard'+(selected?' sel':'');
+    card.innerHTML=`${m.skillPoints>0?`<span class="sp">${m.skillPoints} SP</span>`:''}
+      <div class="rk">${rankName(m.xp)}</div>
+      <h3>${m.name}</h3><div class="cs">"${m.callsign}"</div>
+      <div class="role">${cls.role} · Lv ${levelOf(m.xp)+1}</div>
+      <canvas width="180" height="70"></canvas>
+      <div class="xp"><i style="transform:scaleX(${xpProgress(m.xp).toFixed(3)})"></i></div>
+      <div class="meta"><span>${m.kills} kills</span><span>${m.missions} ops</span></div>
+      <div class="skl">${(m.skills||[]).map(s=>SKILLS[s]?SKILLS[s].ico:'').join(' ')||'—'}</div>`;
+    const cv2=card.querySelector('canvas');
+    UI.drawFace(cv2, m);
+    return card;
+  },
+  drawFace(cv2, m){
+    const x=cv2.getContext('2d'); x.clearRect(0,0,180,70);
+    x.fillStyle='#10150f'; x.fillRect(0,0,180,70);
+    for(let j=0;j<8;j++){x.fillStyle='rgba(60,80,50,.12)';x.fillRect(rnd(0,170),rnd(0,60),rnd(4,18),rnd(2,5));}
+    x.save(); x.translate(90,40); x.scale(1.7,1.7); x.translate(0,-4);
+    UI._figure(x, CLASSES[m.cls], CLASSES[m.cls].weapons[0]);
+    x.restore();
+  },
   toLoadout(){
+    G.squad=Career.squad;
     const wrap=document.getElementById('loadoutops'); wrap.innerHTML='';
-    Game.loadouts=Game.loadouts||OP_NAMES.map(o=>CLASSES[o.cls].weapons[0]);
-    OP_NAMES.forEach((o,i)=>{
-      const cls=CLASSES[o.cls];
+    Game.loadouts=Career.squad.map((m,i)=>(Game.loadouts&&Game.loadouts[i])||CLASSES[m.cls].weapons[0]);
+    Career.squad.forEach((m,i)=>{
+      const cls=CLASSES[m.cls];
       const card=document.createElement('div'); card.className='opcard';
-      card.innerHTML=`<h3>${o.name}</h3><div class="role">${cls.role}</div>
+      card.innerHTML=`<h3>${m.name}</h3><div class="role">${rankName(m.xp)} · ${cls.role}</div>
         <canvas width="180" height="110" id="portrait${i}"></canvas>
-        <div class="stat"><span>HP</span><b>${cls.hp}</b></div>
-        <div class="stat"><span>Armor</span><b>${cls.armor}</b></div>
-        <div class="stat"><span>Action Points</span><b>${cls.ap}</b></div>
-        <div class="stat"><span>Gear</span><b>${Object.entries(cls.gear).filter(([k,v])=>v>0).map(([k,v])=>`${v}×${{flash:'FLASH',frag:'FRAG',c2:'C2',med:'MED'}[k]}`).join(' ')}</b></div>
+        <div class="stat"><span>HP</span><b>${cls.hp+((m.skills||[]).includes('ironwill')?25:0)+((m.skills||[]).includes('breachmaster')?15:0)}</b></div>
+        <div class="stat"><span>Armor</span><b>${cls.armor+((m.skills||[]).includes('juggernaut')?40:0)}</b></div>
+        <div class="stat"><span>Action Points</span><b>${cls.ap+((m.skills||[]).includes('adrenaline')?1:0)+((m.skills||[]).includes('breachmaster')?1:0)}</b></div>
+        <div class="stat"><span>Skills</span><b>${(m.skills||[]).map(s=>SKILLS[s].ico).join(' ')||'—'}</b></div>
         <label>Primary Weapon</label>
         <select id="wsel${i}">${cls.weapons.map(w=>`<option value="${w}" ${Game.loadouts[i]===w?'selected':''}>${WEAPONS[w].name}</option>`).join('')}</select>
         <div class="stat" style="margin-top:6px;color:#8d977f;font-size:10px" id="wdesc${i}"></div>`;
       wrap.appendChild(card);
       const sel=card.querySelector('select');
-      const upd=()=>{ Game.loadouts[i]=sel.value; card.querySelector('#wdesc'+i).textContent=WEAPONS[sel.value].desc;
+      const upd=()=>{ Game.loadouts[i]=sel.value;
         const w=WEAPONS[sel.value];
         card.querySelector('#wdesc'+i).innerHTML=`${w.desc}<br>ACC ${w.acc} · DMG ${w.dmg[0]}–${w.dmg[1]} · ${w.apCost} AP/shot · RNG ${w.range}`;
         UI.portrait(i,sel.value); };
@@ -1460,12 +2203,118 @@ const UI={
     const x=c.getContext('2d'); x.clearRect(0,0,180,110);
     x.fillStyle='#141a12'; x.fillRect(0,0,180,110);
     for(let j=0;j<14;j++){x.fillStyle='rgba(60,80,50,.12)';x.fillRect(rnd(0,170),rnd(0,100),rnd(4,20),rnd(2,6));}
-    UI._drawPortrait(x, OP_NAMES[i].cls, wkey);
+    UI._drawPortrait(x, Career.squad[i].cls, wkey);
+  },
+  /* ---------- barracks ---------- */
+  toBarracks(){ UI.renderBarracks(); UI.show('barracks'); },
+  renderBarracks(){
+    document.getElementById('bk-credits').textContent=Career.credits;
+    const g=document.getElementById('rosterGrid'); g.innerHTML='';
+    Career.roster.forEach(m=>{
+      const card=UI.buildRosterCard(m,false);
+      card.onclick=()=>UI.openOpModal(m.id);
+      g.appendChild(card);
+    });
+    if(!Career.roster.length){ g.innerHTML='<div style="color:#8d977f;padding:30px;letter-spacing:.15em">No operators. Recruit to build your task force.</div>'; }
+  },
+  openRecruit(){
+    const rookieCost=0, vetCost=200;
+    const cands=[Career.makeOperator(['assault','breach','marksman','medic'][irnd(0,3)]),
+                 Career.makeOperator(['assault','breach','marksman','medic'][irnd(0,3)]),
+                 Career.makeOperator(['assault','breach','marksman','medic'][irnd(0,3)],3)];
+    const c=document.getElementById('opmodalcard');
+    const canVet=Career.credits>=vetCost;
+    c.innerHTML=`<h3>Recruitment</h3><div class="sub">Available candidates · Credits ${Career.credits}</div>
+      <div id="candList"></div>
+      <div style="display:flex;gap:10px;margin-top:14px"><button class="ghost" onclick="UI.closeModal()">Close</button></div>`;
+    const list=c.querySelector('#candList');
+    cands.forEach((cand,i)=>{
+      const vet=i===2; const cost=vet?vetCost:rookieCost;
+      const row=document.createElement('div'); row.className='skrow';
+      row.innerHTML=`<canvas width="90" height="54" style="background:#10150f;border:1px solid #2e3a30"></canvas>
+        <div class="info"><b>${cand.name}</b> <span style="color:#57a8e0">"${cand.callsign}"</span>
+        <small>${CLASSES[cand.cls].role} · ${vet?'Veteran (Lv 4, 1 skill)':'Rookie'} · ${cost?cost+' cr':'Free'}</small></div>`;
+      const b=document.createElement('button'); b.textContent=vet?'Hire':'Sign';
+      b.disabled=vet&&!canVet;
+      b.onclick=()=>{ if(vet){ if(Career.credits<vetCost)return; Career.credits-=vetCost; } Career.roster.push(cand); Career.save(); SFX.click(); UI.closeModal(); UI.refreshCareerScreens(); };
+      row.appendChild(b);
+      list.appendChild(row);
+      const fx=row.querySelector('canvas').getContext('2d');
+      fx.save(); fx.translate(45,34); fx.scale(1.5,1.5); fx.translate(0,-4); UI._figure(fx,CLASSES[cand.cls],CLASSES[cand.cls].weapons[0]); fx.restore();
+    });
+    document.getElementById('opmodal').classList.add('active');
+  },
+  refreshCareerScreens(){
+    if(document.getElementById('barracks').classList.contains('active')) UI.renderBarracks();
+    if(document.getElementById('squadsel').classList.contains('active')) UI.renderSquadSelect();
+  },
+  openOpModal(id){
+    const m=Career.memberById(id); if(!m)return;
+    const cls=CLASSES[m.cls];
+    const c=document.getElementById('opmodalcard');
+    const pool=skillsFor(m.cls);
+    c.innerHTML=`<h3 id="opm-name">${m.name}</h3><div class="sub">${rankName(m.xp)} · ${cls.role} · "${m.callsign}"</div>
+      <label style="color:#8d977f;font-size:10px;letter-spacing:.2em">RENAME</label>
+      <input class="rename" id="opm-rename" maxlength="22" value="${m.name.replace(/"/g,'&quot;')}">
+      <div class="xpwrap"><i style="transform:scaleX(${xpProgress(m.xp).toFixed(3)})"></i></div>
+      <div class="stats">
+        <div><span>Level</span><b>${levelOf(m.xp)+1}</b></div>
+        <div><span>XP</span><b>${m.xp}</b></div>
+        <div><span>Kills</span><b>${m.kills}</b></div>
+        <div><span>Missions</span><b>${m.missions}</b></div>
+        <div><span>HP</span><b>${cls.hp}</b></div>
+        <div><span>Armor</span><b>${cls.armor}</b></div>
+      </div>
+      <div class="skhead"><b style="color:#e6e1d3;letter-spacing:.1em">SPECIALTIES</b><span class="pts">Skill points: ${m.skillPoints}</span></div>
+      <div id="opm-skills"></div>
+      <div style="display:flex;gap:10px;margin-top:16px">
+        <button class="ghost" onclick="UI.closeModal()">Done</button>
+        <button class="ghost" style="border-color:#7a3a3a;color:#e07a76" onclick="UI.dismissOp(${m.id})">Dismiss</button>
+      </div>`;
+    const sk=c.querySelector('#opm-skills');
+    pool.forEach(key=>{
+      const s=SKILLS[key], owned=(m.skills||[]).includes(key);
+      const row=document.createElement('div'); row.className='skrow'+(owned?' owned':'');
+      row.innerHTML=`<span class="ico">${s.ico}</span><div class="info"><b>${s.name}</b><small>${s.desc}</small></div>`;
+      if(owned){ const t=document.createElement('span'); t.className='have'; t.textContent='TRAINED'; row.appendChild(t); }
+      else { const b=document.createElement('button'); b.textContent='Train (1 SP)'; b.disabled=m.skillPoints<=0;
+        b.onclick=()=>{ if(m.skillPoints<=0)return; m.skills.push(key); m.skillPoints--; Career.save(); SFX.heal(); UI.openOpModal(id); UI.refreshCareerScreens(); };
+        row.appendChild(b); }
+      sk.appendChild(row);
+    });
+    const rn=c.querySelector('#opm-rename');
+    rn.onchange=()=>{ const v=rn.value.trim().toUpperCase(); if(v){ m.name=v; Career.save(); document.getElementById('opm-name').textContent=v; UI.refreshCareerScreens(); } };
+    document.getElementById('opmodal').classList.add('active');
+  },
+  dismissOp(id){
+    const m=Career.memberById(id); if(!m)return;
+    if(!confirm(`Dismiss ${m.name} from the task force? This cannot be undone.`)) return;
+    Career.roster=Career.roster.filter(o=>o.id!==id);
+    if(Career.squad) Career.squad=Career.squad.filter(o=>o.id!==id);
+    Career.save(); UI.closeModal(); UI.refreshCareerScreens();
+  },
+  closeModal(){ document.getElementById('opmodal').classList.remove('active'); },
+  /* ---------- wall of fame ---------- */
+  toFame(){
+    const l=document.getElementById('fameList');
+    if(!Career.fallen.length){ l.innerHTML='<div class="empty">No operators have fallen. Keep it that way.</div>'; }
+    else{
+      l.innerHTML=Career.fallen.map(f=>`<div class="stone">
+        <div class="cross">✝</div>
+        <div><div class="nm">${f.name}</div><div class="cs">"${f.callsign}" · ${CLASSES[f.cls].role} · ${f.rank}</div></div>
+        <div class="det">${f.kills} confirmed kills<br>${f.missions} operations<br><span style="color:#e07a76">KIA — ${f.mission}</span></div>
+      </div>`).join('');
+    }
+    UI.show('fame');
   },
   _drawPortrait(x, clsKey, wkey){
-    const cls=CLASSES[clsKey];
     x.save(); x.translate(90,58); x.scale(2.4,2.4);
-    // simplified inline figure (mirror of drawHuman)
+    UI._figure(x, CLASSES[clsKey], wkey);
+    x.restore();
+  },
+  _figure(x, cls, wkey){
+    // simplified inline figure (mirror of drawHuman); caller sets translate/scale
+    x.save();
     x.fillStyle='rgba(0,0,0,.4)'; x.beginPath(); x.ellipse(-1,5,15,10,0,0,7); x.fill();
     x.rotate(-Math.PI/2);
     x.fillStyle=shade(cls.camo,-22); x.beginPath(); x.ellipse(-4,-5,4.5,5.8,0,0,7); x.fill();
@@ -1562,14 +2411,22 @@ const UI={
     mk('✸','Frag','4','G',()=>UI.tryMode('frag'),{disabled:op.gear.frag<=0||op.ap<4,on:G.mode==='frag',qty:op.gear.frag});
     mk('◎','Overwatch','2+','O',actOverwatch,{disabled:op.ap<2,on:op.overwatch});
     mk('✚','Medkit','5','M',()=>actMedkit(selOp()),{disabled:op.gear.med<=0||op.ap<5,qty:op.gear.med});
+    const pc=plannedCount();
+    mk('🗺','Plan Move','','P',togglePlan,{on:G.planMode});
+    const xb=document.createElement('button'); xb.className='act'; xb.id='execbtn';
+    xb.innerHTML=`<span class="key">X</span><span class="ico">▶</span><span class="lbl">Execute${pc?' ('+pc+')':''}</span>`;
+    xb.disabled=G.busy||G.phase!=='player'||pc===0; xb.onclick=executePlans; ab.appendChild(xb);
     const eb=document.createElement('button'); eb.className='act'; eb.id='endturn';
     eb.innerHTML='<span class="key">SPC</span><span class="ico">⏭</span><span class="lbl">End Turn</span>';
     eb.disabled=G.busy||G.phase!=='player'; eb.onclick=endTurn; ab.appendChild(eb);
     // selected info
+    const owned=(op.skills||[]).map(s=>SKILLS[s]?SKILLS[s].ico:'').join(' ');
     document.getElementById('selinfo').innerHTML=op?`<h4>${op.name} — ${CLASSES[op.cls].role}</h4>
       <div class="wpn">${op.weapon.name}</div>
-      ACC ${op.weapon.acc} · DMG ${op.weapon.dmg[0]}–${op.weapon.dmg[1]} · ${op.weapon.apCost} AP/shot<br>
+      ACC ${op.weapon.acc} · DMG ${op.weapon.dmg[0]}–${op.weapon.dmg[1]} · ${opShootCost(op)} AP/shot<br>
       HP ${Math.max(0,op.hp)}/${op.maxhp} · ARMOR ${op.armor} · <b style="color:var(--amber)">${op.ap} AP</b>
+      ${owned?`<br><span style="color:var(--amber2)">${owned}</span>`:''}
+      ${G.planMode?`<br><b style="color:#9ff0ad">▸ PLAN MODE: click tiles to queue moves, then EXECUTE</b>`:''}
       ${G.mode?`<br><b style="color:#fff">▸ CLICK TO THROW ${G.mode.toUpperCase()} (ESC to cancel)</b>`:''}`:'';
   },
   showHelp(){
@@ -1579,6 +2436,11 @@ SELECT & MOVE
 • Click an operator (or keys 1–4, TAB) to select.
 • Click a floor tile to move. Dots preview the path & AP cost.
 • Diagonal steps cost 1.5 AP. AP refills every turn.
+
+PLANNING PHASE
+• Press P (or the Plan Move button) to enter PLAN mode.
+• Click tiles to queue a route for each operator — ghosts show the plan.
+• Press X or EXECUTE to run every planned move at once. ESC cancels.
 
 COMBAT
 • Click a visible hostile to fire (hover first to see hit %).
@@ -1592,12 +2454,19 @@ DOORS
 EQUIPMENT
 • F = flashbang: blinds & stuns hostiles for 2 turns.
 • G = frag: heavy area damage — NEVER near hostages.
-• M = medkit (Medic/self): +55 HP to an adjacent operator.
+• M = medkit (Medic/self): heal an adjacent operator (Field Medics can revive).
 
 OBJECTIVES
 • Stand next to a hostage and click them to SECURE.
+• Stand next to INTEL (blue) and click to recover it.
+• HVT targets (✦) must be eliminated to complete the op.
 • Stand next to the IED and click it to DEFUSE (6 AP).
 • Alerted hostiles may execute unsecured hostages. Move fast, or move quiet.
+
+CAREER
+• Barracks: recruit operators, rename them, and spend skill points on specialties.
+• Operators earn XP, rank up, and unlock deadlier skills each mission.
+• Fallen operators are gone for good — honored on the Wall of Fame.
 
 CAMERA: drag with right mouse, WASD to pan, wheel to zoom.
 END TURN: SPACE.`);
@@ -1618,20 +2487,56 @@ const Game={
     UI.banner(Game.current.name,'breach when ready','#e8a33d');
     UI.refresh();
   },
-  retry(){ Game.pending=Game.current; UI.toLoadout(); },
+  retry(){
+    Game.pending=Game.current;
+    Career.squad=(Career.squad||[]).filter(m=>Career.memberById(m.id));
+    if(!Career.squad.length){ UI.toBarracks(); return; }
+    Game.loadouts=null; UI.toLoadout();
+  },
   finish(win,reason){
     setTimeout(()=>{
+      const total=G.ops.length;
       const alive=G.ops.filter(o=>o.alive).length;
       let stars=0;
       if(win){
         stars=1;
-        if(alive===4) stars++;
+        if(alive===total) stars++;
         if(G.turn<=G.mission.par) stars++;
         SFX.win();
         const mi=G.mission.id;
         PROGRESS.stars[mi]=Math.max(PROGRESS.stars[mi],stars);
         PROGRESS.unlocked=Math.max(PROGRESS.unlocked,mi+2);
       } else SFX.lose();
+      // ----- XP, ranking, casualties -----
+      const secured=G.hostages.filter(h=>h.alive&&h.secured).length;
+      const intelGot=(G.intel||[]).filter(i=>i.taken).length;
+      const prog=[];
+      G.ops.forEach(op=>{
+        const m=op.member; if(!m) return;
+        let xp=(win?45:15)+op.mkills*25+secured*12+intelGot*10+stars*15;
+        if(G.hvt&&!G.hvt.alive&&win) xp+=25;
+        const before=levelOf(m.xp);
+        const kia=!op.alive;
+        if(kia){
+          // record casualty
+          Career.fallen.unshift({ name:m.name, callsign:m.callsign, cls:m.cls,
+            rank:rankName(m.xp), kills:m.kills+op.mkills, missions:m.missions+1, mission:G.mission.name });
+          Career.roster=Career.roster.filter(o=>o.id!==m.id);
+          if(Career.squad) Career.squad=Career.squad.filter(o=>o.id!==m.id);
+          prog.push({name:m.name, cls:m.cls, kia:true, xp:0, prog:0, lvlup:false, kills:op.mkills});
+        } else {
+          m.xp+=xp; m.kills+=op.mkills; m.missions++;
+          const after=levelOf(m.xp);
+          const gained=after-before;
+          if(gained>0) m.skillPoints+=gained;
+          prog.push({name:m.name, cls:m.cls, kia:false, xp, prog:xpProgress(m.xp), lvlup:gained>0, rank:rankName(m.xp), kills:op.mkills});
+        }
+      });
+      // mission reward credits
+      if(win){ Career.credits+=100+stars*50+G.stats.kills*8; }
+      else { Career.credits+=25; }
+      Career.save();
+
       const t=document.getElementById('db-title');
       t.textContent=win?'MISSION COMPLETE':'MISSION FAILED';
       t.className='stencil '+(win?'win':'fail');
@@ -1640,15 +2545,25 @@ const Game={
       document.getElementById('db-table').innerHTML=`
         ${reason?`<tr><td>Report</td><td style="color:#e07a76">${reason}</td></tr>`:''}
         <tr><td>Turns Taken</td><td>${G.turn} (par ${G.mission.par})</td></tr>
-        <tr><td>Operators Standing</td><td>${alive} / 4</td></tr>
+        <tr><td>Operators Standing</td><td>${alive} / ${total}</td></tr>
         <tr><td>Hostiles Neutralized</td><td>${G.stats.kills}</td></tr>
         <tr><td>Shots / Hits</td><td>${G.stats.shots} / ${G.stats.hits} (${acc}%)</td></tr>
         <tr><td>Damage Taken</td><td>${G.stats.dmgTaken}</td></tr>
-        ${G.hostages.length?`<tr><td>Hostages</td><td>${G.hostages.filter(h=>h.alive&&h.secured).length}/${G.hostages.length} secured</td></tr>`:''}`;
+        ${G.hostages.length?`<tr><td>Hostages</td><td>${secured}/${G.hostages.length} secured</td></tr>`:''}
+        ${G.intel&&G.intel.length?`<tr><td>Intel</td><td>${intelGot}/${G.intel.length} recovered</td></tr>`:''}
+        <tr><td>Credits Earned</td><td style="color:var(--amber2)">+${win?100+stars*50+G.stats.kills*8:25} cr</td></tr>`;
+      document.getElementById('db-prog').innerHTML='<div style="color:#8d977f;letter-spacing:.2em;font-size:11px;margin-bottom:6px">SQUAD PROGRESSION</div>'+
+        prog.map(p=>p.kia
+          ?`<div class="op kia"><span class="nm">✝ ${p.name}</span><span style="flex:1;color:#e07a76">KILLED IN ACTION</span><span class="lvl">${p.kills} kills</span></div>`
+          :`<div class="op"><span class="nm">${p.name}</span><div class="xpbar"><i style="transform:scaleX(${p.prog.toFixed(3)})"></i></div><span class="gain">+${p.xp} XP</span><span class="lvl">${p.lvlup?'▲ '+p.rank:''}</span></div>`
+        ).join('');
       UI.show('debrief');
     }, 900);
   }
 };
+
+/* ================= INIT ================= */
+Career.load();
 </script>
 </body>
 </html>
