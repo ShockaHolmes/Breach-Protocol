@@ -1693,83 +1693,169 @@ function drawTile(x,y){
 }
 
 /* ---------- character drawing (detailed top-down) ---------- */
+function paintOperator(c,opt){
+  // draws a top-down operator body in local space (forward = +x); caller has translated & rotated
+  const sway=(opt.bob||0)*0.15;
+  const camo=opt.camo, skin=opt.skin, vest=opt.vest||shade(camo,10);
+  const L=opt.weaponLen||18;
+  // ===== LEGS =====
+  c.strokeStyle=shade(camo,-30); c.lineWidth=5.4; c.lineCap='round';
+  c.beginPath(); c.moveTo(-1,-4); c.lineTo(-9,-7+sway); c.stroke();
+  c.beginPath(); c.moveTo(-1,4); c.lineTo(-9,7-sway); c.stroke();
+  // knee pads
+  c.fillStyle=shade(camo,-46);
+  c.beginPath(); c.arc(-6,-6+sway,1.9,0,7); c.fill();
+  c.beginPath(); c.arc(-6,6-sway,1.9,0,7); c.fill();
+  // boots
+  c.fillStyle='#131512';
+  c.beginPath(); c.ellipse(-10.4,-7+sway,2.6,1.9,-0.3,0,7); c.fill();
+  c.beginPath(); c.ellipse(-10.4,7-sway,2.6,1.9,0.3,0,7); c.fill();
+  // ===== TORSO (volumetric) =====
+  let tg=c.createRadialGradient(-1,-3,2,0,0,13);
+  tg.addColorStop(0,shade(camo,26)); tg.addColorStop(1,shade(camo,-16));
+  c.fillStyle=tg;
+  c.beginPath(); c.ellipse(0,0,10,12.6,0,0,7); c.fill();
+  // radio antenna
+  c.strokeStyle='#0d0f0c'; c.lineWidth=0.9;
+  c.beginPath(); c.moveTo(-3,-7); c.lineTo(-6.5,-11.5+sway); c.stroke();
+  // ===== SHOULDER PADS =====
+  for(const sy of [-1,1]){
+    let sg=c.createRadialGradient(1.5,sy*9-sy,0.5,1,sy*9,5);
+    sg.addColorStop(0,shade(camo,34)); sg.addColorStop(1,shade(camo,-22));
+    c.fillStyle=sg;
+    c.beginPath(); c.ellipse(1,sy*9,4.6,4.1,0,0,7); c.fill();
+  }
+  // ===== PLATE CARRIER =====
+  let pg=c.createRadialGradient(1,-3,1,1.5,0,10);
+  pg.addColorStop(0,shade(vest,12)); pg.addColorStop(1,shade(vest,-20));
+  c.fillStyle=pg;
+  c.beginPath(); c.ellipse(1.5,0,5.9,8.2,0,0,7); c.fill();
+  // plate seam
+  c.strokeStyle=shade(vest,-32); c.lineWidth=0.8;
+  c.beginPath(); c.moveTo(1.5,-6.5); c.lineTo(1.5,6.5); c.stroke();
+  // shoulder straps
+  c.fillStyle=shade(vest,-6);
+  c.fillRect(-1,-6.6,7,1.9); c.fillRect(-1,4.7,7,1.9);
+  // MOLLE pouches
+  c.fillStyle=shade(vest,-26);
+  c.fillRect(2.4,-4.2,3.6,3.1); c.fillRect(2.4,1.1,3.6,3.1);
+  c.strokeStyle=shade(vest,12); c.lineWidth=0.5;
+  c.strokeRect(2.4,-4.2,3.6,3.1); c.strokeRect(2.4,1.1,3.6,3.1);
+  // ===== ARMS gripping weapon (rifle shouldered to the right, barrel forward) =====
+  c.strokeStyle=shade(camo,-4); c.lineWidth=4.4; c.lineCap='round'; c.lineJoin='round';
+  c.beginPath(); c.moveTo(3,-7); c.lineTo(9,-1+sway); c.lineTo(15,1.4+sway); c.stroke(); // support arm reaches across
+  c.beginPath(); c.moveTo(2,8); c.lineTo(7,6+sway); c.lineTo(10,4.4+sway); c.stroke();   // trigger arm
+  // elbow pads
+  c.fillStyle=shade(camo,-34);
+  c.beginPath(); c.arc(9,-1+sway,1.6,0,7); c.fill();
+  c.beginPath(); c.arc(7,6+sway,1.6,0,7); c.fill();
+  // ===== WEAPON (offset to the shoulder so it clears the head) =====
+  c.save(); c.translate(0,sway+2.9); c.rotate(-0.12);
+  // butt stock
+  c.fillStyle='#23261f'; c.fillRect(1.2,-1.5,4.6,3);
+  // lower receiver
+  c.fillStyle='#171913'; c.fillRect(5,-2,6.4,4);
+  // pistol grip
+  c.fillStyle='#101210'; c.fillRect(6,1.7,2.3,3.3);
+  // magazine (curved)
+  c.fillStyle='#0e100d';
+  c.beginPath(); c.moveTo(8.8,1.7); c.lineTo(11.4,1.7); c.lineTo(12.5,6.6); c.lineTo(9.6,6.6); c.closePath(); c.fill();
+  c.fillStyle='#191c15'; c.fillRect(9.1,2.2,0.7,3.8);
+  // handguard / barrel
+  c.fillStyle='#1b1e19'; c.fillRect(10,-1.6,L-2,3.2);
+  // top rail highlight
+  c.fillStyle='#33372f'; c.fillRect(10,-1.9,L-4,0.8);
+  // muzzle device / suppressor
+  if(L>20){ c.fillStyle='#0c0e0b'; c.fillRect(7+L,-2,5.5,4); }
+  else { c.fillStyle='#0c0e0b'; c.fillRect(7+L,-1.2,3,2.4); }
+  // optic
+  c.fillStyle='#0a0c09'; c.fillRect(8.4,-3.2,3.4,2.1);
+  c.fillStyle='#3a6a86'; c.beginPath(); c.arc(10,-2.15,0.7,0,7); c.fill(); // lens glint
+  c.restore();
+  // ===== GLOVED HANDS (over weapon) =====
+  c.fillStyle='#242720';
+  c.beginPath(); c.arc(15,1.4+sway,2.2,0,7); c.fill();
+  c.beginPath(); c.arc(10,4.4+sway,2.2,0,7); c.fill();
+  c.fillStyle=shade('#242720',12);
+  c.beginPath(); c.arc(15,0.9+sway,0.95,0,7); c.fill();
+  // ===== NECK + HEAD =====
+  c.fillStyle=shade(skin,-20); c.fillRect(0.4,-1.9,3,3.8);
+  let hg=c.createRadialGradient(1.4,-1.5,0.8,0,0,6);
+  hg.addColorStop(0,shade(skin,18)); hg.addColorStop(1,shade(skin,-16));
+  c.fillStyle=hg; c.beginPath(); c.arc(0,0,5.4,0,7); c.fill();
+  if(opt.helmet){
+    let hel=c.createRadialGradient(1.6,-2,0.8,0,0,7.2);
+    hel.addColorStop(0,shade(camo,32)); hel.addColorStop(0.68,shade(camo,4)); hel.addColorStop(1,shade(camo,-32));
+    c.fillStyle=hel; c.beginPath(); c.arc(0,0,6.6,0,7); c.fill();
+    // rim light
+    c.strokeStyle=shade(camo,44); c.lineWidth=0.7;
+    c.beginPath(); c.arc(-0.4,-0.5,6.1,-2.5,-0.3); c.stroke();
+    // NVG mount (front)
+    c.fillStyle='#0e120d'; c.fillRect(5,-1.7,3,3.4);
+    c.fillStyle='#1a1e17'; c.fillRect(6.6,-1.2,1.5,2.4);
+    // ear pro / headset cups
+    c.fillStyle='#1f231d';
+    c.beginPath(); c.ellipse(-0.4,-5.5,2.3,1.9,0,0,7); c.fill();
+    c.beginPath(); c.ellipse(-0.4,5.5,2.3,1.9,0,0,7); c.fill();
+    // mic boom
+    c.strokeStyle='#141612'; c.lineWidth=0.8;
+    c.beginPath(); c.moveTo(-0.4,5.4); c.lineTo(4,3.2); c.stroke();
+  } else {
+    // bare head — from above it's mostly the crown of hair with a thin forehead rim
+    let har=c.createRadialGradient(1.5,-1,0.5,0,0,5.2);
+    har.addColorStop(0,'#4a382b'); har.addColorStop(1,'#241a13');
+    c.fillStyle=har; c.beginPath(); c.arc(0.3,0,5,0,7); c.fill();
+    // hair part / strand detail
+    c.strokeStyle='rgba(20,14,9,.5)'; c.lineWidth=0.5;
+    c.beginPath(); c.moveTo(-3,0); c.lineTo(4,0); c.stroke();
+    // headset band + cups
+    c.fillStyle='#20241d';
+    c.beginPath(); c.ellipse(-0.4,-5,1.7,1.5,0,0,7); c.fill();
+    c.beginPath(); c.ellipse(-0.4,5,1.7,1.5,0,0,7); c.fill();
+    c.strokeStyle='#181b15'; c.lineWidth=0.9;
+    c.beginPath(); c.arc(0,0,5.2,-2.2,-0.9); c.stroke();
+  }
+  // chin ambient occlusion
+  c.fillStyle='rgba(0,0,0,.16)';
+  c.beginPath(); c.arc(2.4,0,1.1,0,7); c.fill();
+}
 function drawHuman(px,py,facing,opt){
   // opt: {skin,camo,helmet,vest,weaponLen,down,kneel,color,stunned,bob}
   ctx.save(); ctx.translate(px,py+(opt.bob||0)*0.3);
   // shadow
   ctx.fillStyle='rgba(0,0,0,.42)'; ctx.beginPath(); ctx.ellipse(-1,5,15,10,0,0,7); ctx.fill();
-  if(opt.down){ // corpse pose
+  if(opt.down){ // corpse pose (sprawled, face-down)
     ctx.rotate(facing+1.2);
-    ctx.fillStyle=shade(opt.camo,-18); ctx.beginPath(); ctx.ellipse(-4,-4,5.5,4.2,0,0,7); ctx.fill();
-    ctx.beginPath(); ctx.ellipse(-4,4,5.5,4.2,0,0,7); ctx.fill();
-    ctx.fillStyle=opt.camo; ctx.beginPath(); ctx.ellipse(0,0,14,8.5,0,0,7); ctx.fill();
-    ctx.fillStyle=opt.vest||shade(opt.camo,10); ctx.beginPath(); ctx.ellipse(1,0,8,5.5,0,0,7); ctx.fill();
-    ctx.fillStyle=opt.skin; ctx.beginPath(); ctx.arc(10,-2,5.3,0,7); ctx.fill();
-    ctx.fillStyle='#3b2b22'; ctx.beginPath(); ctx.arc(8.5,-3,3.2,0,7); ctx.fill();
-    ctx.fillStyle=shade(opt.camo,-8); ctx.fillRect(-18,-4,8,3.4); ctx.fillRect(-16,2.5,8,3.4);
-    ctx.fillStyle='#1a1d1b'; ctx.fillRect(5,-1.5,14,2.8);
+    // blood pool
+    ctx.fillStyle='rgba(90,10,12,.5)'; ctx.beginPath(); ctx.ellipse(2,1,13,9,0,0,7); ctx.fill();
+    ctx.fillStyle='rgba(60,6,8,.55)'; ctx.beginPath(); ctx.ellipse(4,0,8,5.5,0,0,7); ctx.fill();
+    // legs sprawled
+    ctx.strokeStyle=shade(opt.camo,-30); ctx.lineWidth=5; ctx.lineCap='round';
+    ctx.beginPath(); ctx.moveTo(-3,-2); ctx.lineTo(-16,-6); ctx.stroke();
+    ctx.beginPath(); ctx.moveTo(-3,2); ctx.lineTo(-15,7); ctx.stroke();
+    ctx.fillStyle='#131512';
+    ctx.beginPath(); ctx.ellipse(-17,-6,2.6,1.9,0,0,7); ctx.fill();
+    ctx.beginPath(); ctx.ellipse(-16,7,2.6,1.9,0,0,7); ctx.fill();
+    // torso
+    let dg=ctx.createRadialGradient(-1,-2,2,0,0,13);
+    dg.addColorStop(0,shade(opt.camo,14)); dg.addColorStop(1,shade(opt.camo,-22));
+    ctx.fillStyle=dg; ctx.beginPath(); ctx.ellipse(0,0,13,8.4,0,0,7); ctx.fill();
+    // plate carrier back
+    ctx.fillStyle=opt.vest||shade(opt.camo,10); ctx.beginPath(); ctx.ellipse(1,0,7.6,5.4,0,0,7); ctx.fill();
+    ctx.strokeStyle=shade(opt.vest||opt.camo,-24); ctx.lineWidth=0.8; ctx.strokeRect(-3,-3.4,8,6.8);
+    // outflung arm
+    ctx.strokeStyle=shade(opt.camo,-6); ctx.lineWidth=4.2;
+    ctx.beginPath(); ctx.moveTo(0,5); ctx.lineTo(6,11); ctx.stroke();
+    ctx.fillStyle='#242720'; ctx.beginPath(); ctx.arc(6,11,2.1,0,7); ctx.fill();
+    // head
+    ctx.fillStyle=shade(opt.skin,-6); ctx.beginPath(); ctx.arc(10,-2,5,0,7); ctx.fill();
+    ctx.fillStyle='#33241c'; ctx.beginPath(); ctx.arc(8.6,-3,3.4,0,7); ctx.fill();
+    // dropped weapon
+    ctx.fillStyle='#1a1d1b'; ctx.save(); ctx.translate(6,4); ctx.rotate(0.5); ctx.fillRect(0,-1.4,16,2.8); ctx.restore();
     ctx.restore(); return;
   }
   ctx.rotate(facing);
-  const sway=(opt.bob||0)*0.15;
-  // lower body
-  ctx.fillStyle=shade(opt.camo,-24);
-  ctx.beginPath(); ctx.ellipse(-4,-5+sway,4.5,5.8,0,0,7); ctx.fill();
-  ctx.beginPath(); ctx.ellipse(-4,5-sway,4.5,5.8,0,0,7); ctx.fill();
-  ctx.fillStyle='#1a1c19';
-  ctx.beginPath(); ctx.ellipse(-5,-10+sway,2.6,2,0,0,7); ctx.fill();
-  ctx.beginPath(); ctx.ellipse(-5,10-sway,2.6,2,0,0,7); ctx.fill();
-  // torso / shoulders
-  ctx.fillStyle=opt.camo;
-  ctx.beginPath(); ctx.ellipse(0,0,10,12.8,0,0,7); ctx.fill();
-  ctx.fillStyle=shade(opt.camo,12);
-  ctx.beginPath(); ctx.ellipse(-1,0,7.6,10.6,0,0,7); ctx.fill();
-  // plate carrier
-  ctx.fillStyle=opt.vest||'#40463e';
-  ctx.beginPath(); ctx.ellipse(2,0,6.8,8.9,0,0,7); ctx.fill();
-  ctx.fillStyle=shade(opt.vest||'#40463e',18);
-  ctx.fillRect(-1,-7,6,2.2);
-  // mag pouches / belt
-  ctx.fillStyle=shade(opt.vest||opt.camo,-18);
-  ctx.fillRect(1,-6,4,3); ctx.fillRect(1,3,4,3); ctx.fillRect(-1,8,6,1.8);
-  // neck
-  ctx.fillStyle=shade(opt.skin,-10);
-  ctx.fillRect(1,-2,3,4);
-  // arms gripping weapon (extended forward-right)
-  ctx.strokeStyle=shade(opt.camo,-10); ctx.lineWidth=4.6; ctx.lineCap='round';
-  ctx.beginPath(); ctx.moveTo(2,-7); ctx.lineTo(13,-3+sway); ctx.stroke(); // support arm
-  ctx.beginPath(); ctx.moveTo(2,7); ctx.lineTo(11,2+sway); ctx.stroke();  // trigger arm
-  ctx.fillStyle=opt.skin;
-  ctx.beginPath(); ctx.arc(13,-3+sway,2.5,0,7); ctx.fill();
-  ctx.beginPath(); ctx.arc(11,2+sway,2.5,0,7); ctx.fill();
-  ctx.fillStyle='#343933';
-  ctx.fillRect(9,-5+sway,4,2); ctx.fillRect(8,1+sway,4,2);
-  // weapon
-  const L=opt.weaponLen||18;
-  ctx.fillStyle='#191c18';
-  ctx.fillRect(7,-2+sway,L,3.3); // receiver+barrel
-  ctx.fillStyle='#272b27';
-  ctx.fillRect(5,-1+sway,8,2.6); // receiver
-  ctx.fillStyle='#151714';
-  ctx.fillRect(4,0+sway,6,3);    // grip/stock
-  ctx.fillStyle='#6c5f38';
-  ctx.fillRect(8,-.6+sway,3,2.1); // foregrip / handguard accent
-  if(L>20){ ctx.fillStyle='#0e100d'; ctx.fillRect(8+L*0.52,-3.5+sway,6,2); }
-  ctx.fillStyle='#0f100f';
-  ctx.fillRect(11,-1.1+sway,4,5.2); // magwell / mag
-  // head + helmet
-  ctx.fillStyle=opt.skin; ctx.beginPath(); ctx.arc(0,0,6,0,7); ctx.fill();
-  ctx.fillStyle=shade(opt.skin,10); ctx.beginPath(); ctx.arc(1,-1,4.1,0,7); ctx.fill();
-  if(opt.helmet){
-    ctx.fillStyle=shade(opt.camo,20); ctx.beginPath(); ctx.arc(0,0,6.8,0,7); ctx.fill();
-    ctx.fillStyle=shade(opt.camo,34); ctx.beginPath(); ctx.arc(-1,0,4.8,0,7); ctx.fill();
-    ctx.fillStyle='#11140f'; ctx.fillRect(4,-2,4,4);
-    ctx.fillStyle='#2d312e'; ctx.fillRect(-5,-2.6,2.6,5.2); // ear protection
-  } else {
-    ctx.fillStyle='#3b2b22'; ctx.beginPath(); ctx.arc(-1.5,0,4.4,0,7); ctx.fill();
-  }
-  ctx.fillStyle='rgba(0,0,0,.24)';
-  ctx.beginPath(); ctx.arc(2.2,0,1.1,0,7); ctx.fill();
+  paintOperator(ctx,opt);
   if(opt.stunned){ ctx.fillStyle='#ffe8a0'; ctx.font='10px monospace'; ctx.fillText('✶',6,-8); }
   ctx.restore();
 }
@@ -2313,36 +2399,11 @@ const UI={
     x.restore();
   },
   _figure(x, cls, wkey){
-    // simplified inline figure (mirror of drawHuman); caller sets translate/scale
+    // realistic operator figure (shared with in-game drawHuman); caller sets translate/scale
     x.save();
     x.fillStyle='rgba(0,0,0,.4)'; x.beginPath(); x.ellipse(-1,5,15,10,0,0,7); x.fill();
     x.rotate(-Math.PI/2);
-    x.fillStyle=shade(cls.camo,-22); x.beginPath(); x.ellipse(-4,-5,4.5,5.8,0,0,7); x.fill();
-    x.beginPath(); x.ellipse(-4,5,4.5,5.8,0,0,7); x.fill();
-    x.fillStyle='#1a1c19'; x.beginPath(); x.ellipse(-5,-10,2.6,2,0,0,7); x.fill();
-    x.beginPath(); x.ellipse(-5,10,2.6,2,0,0,7); x.fill();
-    x.fillStyle=cls.camo; x.beginPath(); x.ellipse(0,0,10,12.8,0,0,7); x.fill();
-    x.fillStyle=shade(cls.camo,12); x.beginPath(); x.ellipse(-1,0,7.6,10.6,0,0,7); x.fill();
-    x.fillStyle='#40463e'; x.beginPath(); x.ellipse(2,0,6.8,8.9,0,0,7); x.fill();
-    x.fillStyle='#515950'; x.fillRect(-1,-7,6,2.2);
-    x.fillStyle='#252a25'; x.fillRect(1,-6,4,3); x.fillRect(1,3,4,3); x.fillRect(-1,8,6,1.8);
-    x.strokeStyle=shade(cls.camo,-10); x.lineWidth=4.6; x.lineCap='round';
-    x.beginPath(); x.moveTo(2,-7); x.lineTo(13,-3); x.stroke();
-    x.beginPath(); x.moveTo(2,7); x.lineTo(11,2); x.stroke();
-    x.fillStyle=cls.skin; x.beginPath(); x.arc(13,-3,2.6,0,7); x.fill(); x.beginPath(); x.arc(11,2,2.6,0,7); x.fill();
-    const L=wkey==='mk12'?24:(wkey==='p226'?10:18);
-    x.fillStyle='#191c18'; x.fillRect(7,-2,L,3.3);
-    x.fillStyle='#272b27'; x.fillRect(5,-1,8,2.6);
-    x.fillStyle='#151714'; x.fillRect(4,0,6,3);
-    x.fillStyle='#6c5f38'; x.fillRect(8,-.6,3,2.1);
-    if(L>20){ x.fillStyle='#0e100d'; x.fillRect(8+L*0.52,-3.5,6,2); }
-    x.fillStyle='#0f100f'; x.fillRect(11,-1.1,4,5.2);
-    x.fillStyle=shade(cls.skin,-2); x.beginPath(); x.arc(0,0,6,0,7); x.fill();
-    x.fillStyle=shade(cls.skin,10); x.beginPath(); x.arc(1,-1,4.1,0,7); x.fill();
-    x.fillStyle='#546355'; x.beginPath(); x.arc(0,0,6.8,0,7); x.fill();
-    x.fillStyle='#677669'; x.beginPath(); x.arc(-1,0,4.8,0,7); x.fill();
-    x.fillStyle='#11140f'; x.fillRect(4,-2,4,4);
-    x.fillStyle='#2d312e'; x.fillRect(-5,-2.6,2.6,5.2);
+    paintOperator(x,{skin:cls.skin,camo:cls.camo,helmet:true,vest:'#2c332b',weaponLen:(wkey==='mk12'?24:(wkey==='p226'?10:18))});
     x.restore();
   },
   tryMode(type){
